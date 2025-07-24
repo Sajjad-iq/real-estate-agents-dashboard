@@ -164,12 +164,43 @@
         </li>
       </ul>
     </nav>
+
+    <!-- Theme Switcher -->
+    <div class="theme-switcher">
+      <div class="theme-title">
+        <span>{{ $t('theme.appearance') }}</span>
+      </div>
+      <div class="theme-options">
+        <button
+          @click="setTheme('light')"
+          :class="['theme-option', { 'active': theme === 'light' }]"
+          :title="$t('theme.light')"
+        >
+          <Sun class="theme-icon" />
+        </button>
+        <button
+          @click="setTheme('dark')"
+          :class="['theme-option', { 'active': theme === 'dark' }]"
+          :title="$t('theme.dark')"
+        >
+          <Moon class="theme-icon" />
+        </button>
+        <button
+          @click="setTheme('system')"
+          :class="['theme-option', { 'active': theme === 'system' }]"
+          :title="$t('theme.system')"
+        >
+          <Monitor class="theme-icon" />
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { useTheme } from '@/composables/useTheme'
 import {
   Layers,
   User,
@@ -185,7 +216,10 @@ import {
   BarChart3,
   TrendingUp,
   FileCheck,
-  Settings
+  Settings,
+  Sun,
+  Moon,
+  Monitor
 } from 'lucide-vue-next'
 
 const emit = defineEmits<{
@@ -195,6 +229,9 @@ const emit = defineEmits<{
 const route = useRoute()
 const router = useRouter()
 const activeItem = ref('agencies') // Default to agencies since that's our main section
+
+// Theme management
+const { theme, setTheme } = useTheme()
 
 // Update active item based on current route
 const currentSection = computed(() => {
@@ -353,5 +390,64 @@ function navigateTo(section: string) {
 
 .nav-item span {
   flex: 1;
+}
+
+/* Theme Switcher */
+.theme-switcher {
+  padding: 1rem;
+  border-top: 1px solid var(--sidebar-border);
+  margin-top: auto;
+}
+
+.theme-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: color-mix(in srgb, var(--sidebar-foreground) 60%, transparent);
+  margin-bottom: 0.75rem;
+  text-align: center;
+}
+
+.theme-options {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.theme-option {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--sidebar-border);
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: color-mix(in srgb, var(--sidebar-foreground) 70%, transparent);
+}
+
+.theme-option:hover {
+  background-color: var(--sidebar-accent);
+  border-color: var(--sidebar-accent);
+  color: var(--sidebar-accent-foreground);
+}
+
+.theme-option.active {
+  background-color: var(--sidebar-primary);
+  border-color: var(--sidebar-primary);
+  color: var(--sidebar-primary-foreground);
+}
+
+.theme-icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* RTL Support for Theme Switcher */
+[dir="rtl"] .theme-switcher {
+  text-align: right;
 }
 </style> 

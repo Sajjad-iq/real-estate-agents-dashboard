@@ -7,6 +7,17 @@ import i18n from './i18n'
 import router from './router'
 import { queryClient } from './lib/queryClient'
 
+// Initialize theme early to prevent flash
+const savedTheme = localStorage.getItem('theme-preference') || 'system'
+const isDark = savedTheme === 'dark' ||
+    (savedTheme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)
+
+if (isDark) {
+    document.documentElement.classList.add('dark')
+} else {
+    document.documentElement.classList.remove('dark')
+}
+
 const app = createApp(App)
 
 app.use(VueQueryPlugin, { queryClient })

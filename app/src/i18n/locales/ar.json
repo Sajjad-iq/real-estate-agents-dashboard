@@ -25,6 +25,12 @@
     "brand": {
         "name": "بيتي"
     },
+    "theme": {
+        "appearance": "المظهر",
+        "light": "المظهر الفاتح",
+        "dark": "المظهر الداكن",
+        "system": "مظهر النظام"
+    },
     "agencies": {
         "dashboard": {
             "title": "لوحة تحكم الوكالات",

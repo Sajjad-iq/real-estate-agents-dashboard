@@ -25,6 +25,12 @@
     "brand": {
         "name": "Baity"
     },
+    "theme": {
+        "appearance": "Appearance",
+        "light": "Light Theme",
+        "dark": "Dark Theme",
+        "system": "System Theme"
+    },
     "agencies": {
         "dashboard": {
             "title": "Agencies Dashboard",

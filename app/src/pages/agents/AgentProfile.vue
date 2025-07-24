@@ -4,7 +4,7 @@
     <!-- Loading Skeleton -->
     <template v-if="loading">
       <!-- Main Content Skeleton (7 columns on desktop) -->
-      <div class="lg:col-span-7 rounded-xl p-3 md:p-5 bg-surfaceContainerLow order-2 lg:order-1">
+      <div class="lg:col-span-7 rounded-xl p-3 md:p-5 bg-card order-2 lg:order-1">
         <!-- Gallery Skeleton -->
         <div class="mt-3 h-[300px] md:h-[400px] lg:h-[550px] rounded-lg overflow-hidden">
           <Skeleton class="w-full h-full" />
@@ -30,7 +30,7 @@
           </div>
           
           <!-- Divider -->
-          <div class="mt-5 pb-4 border-b border-outline"></div>
+          <div class="mt-5 pb-4 border-b border-border"></div>
           
           <!-- News Section Skeleton -->
           <div class="mt-4">
@@ -47,10 +47,10 @@
       <!-- Sidebar Skeleton (3 columns on desktop) -->
       <div class="lg:col-span-3 flex flex-col order-1 lg:order-2">
         <!-- Contact Information Skeleton -->
-        <div class="rounded-xl p-3 md:p-5 bg-surfaceContainerLow flex flex-col gap-3 md:gap-5">
+        <div class="rounded-xl p-3 md:p-5 bg-card flex flex-col gap-3 md:gap-5">
           <Skeleton class="h-5 w-32" />
           <div class="flex flex-col gap-2 md:gap-3">
-            <div v-for="i in 3" :key="i" class="border border-outlineVariant rounded-lg py-2 px-3 flex items-center gap-2">
+            <div v-for="i in 3" :key="i" class="border border-border rounded-lg py-2 px-3 flex items-center gap-2">
               <Skeleton class="w-6 h-6 md:w-8 md:h-8 rounded-lg" />
               <Skeleton class="h-4 flex-1" />
             </div>
@@ -58,7 +58,7 @@
         </div>
 
         <!-- Map Skeleton -->
-        <div class="mt-3 md:mt-5 grow rounded-xl p-3 md:p-5 bg-surfaceContainerLow flex flex-col gap-3 md:gap-5">
+        <div class="mt-3 md:mt-5 grow rounded-xl p-3 md:p-5 bg-card flex flex-col gap-3 md:gap-5">
           <Skeleton class="h-5 w-28" />
           <div class="min-h-48 md:min-h-52 h-full">
             <Skeleton class="w-full h-full rounded-3xl" />
@@ -70,7 +70,7 @@
     <!-- Actual Content -->
     <template v-else>
     <!-- Main Content (7 columns on desktop, full width on mobile) -->
-    <div class="lg:col-span-7 rounded-xl p-3 md:p-5 bg-surfaceContainerLow order-2 lg:order-1">
+    <div class="lg:col-span-7 rounded-xl p-3 md:p-5 bg-card order-2 lg:order-1">
       <!-- Gallery Section -->
       <div id="Gallery">
         
@@ -110,7 +110,7 @@
       <div class="mt-3">
         <div class="flex flex-col sm:flex-row items-center sm:items-start gap-4">
           <!-- Agency Avatar -->
-          <div class="min-w-[80px] min-h-[80px] w-[80px] h-[80px] md:min-w-[120px] md:min-h-[120px] md:w-[120px] md:h-[120px] border-2 border-outlineVariant shadow-md rounded-full overflow-hidden flex-shrink-0">
+          <div class="min-w-[80px] min-h-[80px] w-[80px] h-[80px] md:min-w-[120px] md:min-h-[120px] md:w-[120px] md:h-[120px] border-2 border-border shadow-md rounded-full overflow-hidden flex-shrink-0">
             <img 
               :src="agencyAvatarImage"
               :alt="agent?.name"
@@ -121,14 +121,14 @@
           
           <!-- Agency Info and Actions -->
           <div class="w-full flex flex-col sm:flex-row sm:justify-between gap-4">
-            <div class="grow text-onSurfaceVariant flex flex-col gap-1.5 text-center sm:text-left">
-              <p class="text-onSurface font-semibold text-lg md:text-xl">{{ agent?.name }}</p>
+            <div class="grow text-muted-foreground flex flex-col gap-1.5 text-center sm:text-left">
+              <p class="text-foreground font-semibold text-lg md:text-xl">{{ agent?.name }}</p>
               <div class="flex items-center justify-center sm:justify-start gap-1 -ms-1">
                 <MapPin class="w-4 md:w-5 max-w-5 text-blue-500" />
                 <span class="text-sm md:text-base">{{ agent?.address }}</span>
               </div>
               <div class="flex items-center justify-center sm:justify-start gap-1 text-xs md:text-sm">
-                <p class="text-tertiary">( {{ agent?.propertiesCount }} Real estate )</p>
+                <p class="text-muted-foreground">( {{ agent?.propertiesCount }} Real estate )</p>
                 <p class="text-lg md:text-xl">.</p>
                 <p>{{ agent?.employeesCount || 0 }} Followers</p>
               </div>
@@ -136,7 +136,7 @@
             <div class="flex justify-center sm:justify-end gap-4">
               <button 
                 type="button"
-                class="transition-all bg-primary disabled:bg-primary/15 disabled:text-primary disabled:cursor-not-allowed text-onPrimary rounded-lg py-2 px-3 md:py-2.5 md:px-4 h-9 md:h-11 text-sm md:text-base !bg-transparent text-primary border border-primary"
+                class="transition-all bg-transparent text-primary border border-primary hover:bg-primary hover:text-primary-foreground rounded-lg py-2 px-3 md:py-2.5 md:px-4 h-9 md:h-11 text-sm md:text-base"
               >
                 Share
               </button>
@@ -145,12 +145,12 @@
         </div>
         
         <!-- Divider -->
-        <div class="mt-5 text-onSurfaceVariant pb-4 border-b border-outline"></div>
+        <div class="mt-5 text-muted-foreground pb-4 border-b border-border"></div>
         
         <!-- News Section -->
         <div id="News" class="mt-4">
           <div class="flex items-center justify-between">
-            <h3 class="text-onSurface font-semibold">News ( 0 )</h3>
+            <h3 class="text-foreground font-semibold">News ( 0 )</h3>
           </div>
           <div class="text-primary flex items-center justify-center h-20">
             No news available
@@ -162,47 +162,47 @@
     <!-- Sidebar (3 columns on desktop, full width on mobile) -->
     <div class="lg:col-span-3 flex flex-col order-1 lg:order-2">
       <!-- Contact Information -->
-      <div class="rounded-xl p-3 md:p-5 bg-surfaceContainerLow flex flex-col gap-3 md:gap-5">
-        <h1 class="text-onSurface font-semibold text-sm md:text-base">Contact Information</h1>
+      <div class="rounded-xl p-3 md:p-5 bg-card flex flex-col gap-3 md:gap-5">
+        <h1 class="text-foreground font-semibold text-sm md:text-base">Contact Information</h1>
         <div class="flex flex-col gap-2 md:gap-3">
           <!-- Phone -->
-          <div class="border border-outlineVariant rounded-lg py-2 px-3 flex items-center gap-2">
-            <div class="bg-lightBlue/10 rounded-lg w-6 h-6 md:w-8 md:h-8 flex items-center justify-center flex-shrink-0">
-              <Phone class="w-3 md:w-5 max-w-5" />
+          <div class="border border-border rounded-lg py-2 px-3 flex items-center gap-2">
+            <div class="bg-primary/10 rounded-lg w-6 h-6 md:w-8 md:h-8 flex items-center justify-center flex-shrink-0">
+              <Phone class="w-3 md:w-5 max-w-5 text-primary" />
             </div>
-            <p class="text-tertiary text-xs md:text-sm cursor-pointer break-all" dir="ltr">{{ cleanPhone(agent?.phone) }}</p>
+            <p class="text-muted-foreground text-xs md:text-sm cursor-pointer break-all" dir="ltr">{{ cleanPhone(agent?.phone) }}</p>
           </div>
           
           <!-- Facebook -->
-          <div class="border border-outlineVariant rounded-lg py-2 px-3 flex items-center gap-2">
-            <div class="bg-lightBlue/10 rounded-lg w-6 h-6 md:w-8 md:h-8 flex items-center justify-center flex-shrink-0">
-              <Facebook class="w-3 md:w-5 max-w-5" />
+          <div class="border border-border rounded-lg py-2 px-3 flex items-center gap-2">
+            <div class="bg-primary/10 rounded-lg w-6 h-6 md:w-8 md:h-8 flex items-center justify-center flex-shrink-0">
+              <Facebook class="w-3 md:w-5 max-w-5 text-primary" />
             </div>
             <a 
               href="#" 
               target="_blank" 
               rel="noopener noreferrer" 
-              class="text-tertiary text-xs md:text-sm cursor-pointer"
+              class="text-muted-foreground text-xs md:text-sm cursor-pointer"
             >
               Facebook
             </a>
           </div>
           
           <!-- Working Hours -->
-          <div class="cursor-pointer border border-outlineVariant rounded-lg py-2 px-3 flex items-center justify-between">
+          <div class="cursor-pointer border border-border rounded-lg py-2 px-3 flex items-center justify-between">
             <div class="flex items-center gap-2">
-              <div class="bg-lightBlue/10 rounded-lg w-6 h-6 md:w-8 md:h-8 flex items-center justify-center flex-shrink-0">
-                <Clock class="w-3 md:w-5 max-w-5" />
+              <div class="bg-primary/10 rounded-lg w-6 h-6 md:w-8 md:h-8 flex items-center justify-center flex-shrink-0">
+                <Clock class="w-3 md:w-5 max-w-5 text-primary" />
               </div>
-              <p class="text-xs md:text-sm text-onSurface">View Working Hours</p>
+              <p class="text-xs md:text-sm text-foreground">View Working Hours</p>
             </div>
           </div>
         </div>
       </div>
 
       <!-- Location Map -->
-      <div class="mt-3 md:mt-5 grow rounded-xl p-3 md:p-5 bg-surfaceContainerLow flex flex-col gap-3 md:gap-5">
-        <h1 class="text-onSurface font-semibold text-sm md:text-base">Location on Map</h1>
+      <div class="mt-3 md:mt-5 grow rounded-xl p-3 md:p-5 bg-card flex flex-col gap-3 md:gap-5">
+        <h1 class="text-foreground font-semibold text-sm md:text-base">Location on Map</h1>
         <div class="min-h-48 md:min-h-52 h-full">
           <div class="w-full h-full overflow-hidden rounded-3xl">
             <div class="mapdiv h-full relative overflow-hidden">
@@ -328,49 +328,5 @@ function openFullscreenMap() {
   .custom-container {
     padding: 0 1.5rem;
   }
-}
-
-.bg-surfaceContainerLow {
-  background-color: #f8f9fa;
-}
-
-.text-onSurface {
-  color: #1a1a1a;
-}
-
-.text-onSurfaceVariant {
-  color: #666666;
-}
-
-.text-tertiary {
-  color: #888888;
-}
-
-.border-outlineVariant {
-  border-color: #e0e0e0;
-}
-
-.border-outline {
-  border-color: #d0d0d0;
-}
-
-.bg-lightBlue\/10 {
-  background-color: rgba(33, 150, 243, 0.1);
-}
-
-.text-onPrimary {
-  color: white;
-}
-
-.bg-primary {
-  background-color: #2196f3;
-}
-
-.text-primary {
-  color: #2196f3;
-}
-
-.border-primary {
-  border-color: #2196f3;
 }
 </style> 
