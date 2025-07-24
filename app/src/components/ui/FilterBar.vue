@@ -5,7 +5,7 @@
       <div class="flex-1">
         <Input
           v-model="searchValue"
-          placeholder="Search by name or phone..."
+          placeholder="Search by agency name or phone..."
           class="w-full form-control"
           @input="emitFilters"
         />

@@ -2,14 +2,7 @@
   <div class="w-full space-y-4">
     <!-- Table Controls -->
     <div class="flex items-center justify-between">
-      <div class="flex items-center space-x-2">
-        <Input
-          placeholder="Filter agents..."
-          :model-value="(table.getColumn('name')?.getFilterValue() as string) ?? ''"
-          @update:model-value="table.getColumn('name')?.setFilterValue($event)"
-          class="max-w-sm form-control"
-        />
-      </div>
+      
       
       <div class="flex items-center space-x-2">
         <DropdownMenu>
@@ -65,7 +58,7 @@
           </template>
           <TableRow v-else>
             <TableCell :colspan="columns.length" class="h-24 text-center">
-              No agents found.
+              No agencies found.
             </TableCell>
           </TableRow>
         </TableBody>
@@ -76,7 +69,7 @@
     <div class="flex items-center justify-between space-x-2 py-4">
       <div class="flex-1 text-sm text-muted-foreground">
         {{ table.getFilteredSelectedRowModel().rows.length }} of
-        {{ table.getFilteredRowModel().rows.length }} agent(s) selected.
+        {{ table.getFilteredRowModel().rows.length }} agency(ies) selected.
       </div>
       <div class="flex items-center space-x-2">
         <p class="text-sm font-medium">Rows per page</p>

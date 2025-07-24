@@ -2,8 +2,8 @@
   <div class="container mx-auto px-4 py-8">
     <!-- Page Header -->
     <div class="mb-8">
-      <h1 class="text-4xl font-bold text-foreground mb-2">Real Estate Agents Dashboard</h1>
-      <p class="text-muted-foreground text-lg">Manage and monitor your Iraqi real estate agent network</p>
+      <h1 class="text-4xl font-bold text-foreground mb-2">Real Estate Agencies Dashboard</h1>
+      <p class="text-muted-foreground text-lg">Manage and monitor your Iraqi real estate agency network</p>
     </div>
 
     <!-- Stats Cards -->
@@ -14,7 +14,7 @@
             <User class="h-7 w-7 text-primary" />
           </div>
           <div class="ml-4">
-            <p class="text-sm text-muted-foreground font-medium">Total Agents</p>
+            <p class="text-sm text-muted-foreground font-medium">Total Agencies</p>
             <p class="text-3xl font-bold text-foreground">{{ totalAgents }}</p>
           </div>
         </div>
@@ -26,7 +26,7 @@
             <CheckCircle class="h-7 w-7 text-teal-600" />
           </div>
           <div class="ml-4">
-            <p class="text-sm text-muted-foreground font-medium">Active Agents</p>
+            <p class="text-sm text-muted-foreground font-medium">Active Agencies</p>
             <p class="text-3xl font-bold text-teal-700">{{ activeAgents }}</p>
           </div>
         </div>
@@ -89,9 +89,9 @@
         <div class="mx-auto h-24 w-24 text-gray-400 mb-4">
           <User class="h-full w-full" />
         </div>
-        <h3 class="text-lg font-medium text-gray-900 mb-2">No agents found</h3>
+        <h3 class="text-lg font-medium text-gray-900 mb-2">No agencies found</h3>
         <p class="text-gray-600 mb-4">
-          {{ agents.length === 0 ? 'No agents have been added yet.' : 'Try adjusting your filters.' }}
+          {{ agents.length === 0 ? 'No agencies have been added yet.' : 'Try adjusting your filters.' }}
         </p>
         <Button v-if="agents.length > 0" @click="clearFilters" variant="outline">
           Clear Filters
