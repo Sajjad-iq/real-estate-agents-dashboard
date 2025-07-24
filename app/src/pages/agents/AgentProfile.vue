@@ -4,13 +4,6 @@
     <div class="col-span-7 rounded-xl p-5 bg-surfaceContainerLow">
       <!-- Gallery Section -->
       <div id="Gallery">
-        <!-- Header with Back Button -->
-        <div class="flex items-center justify-between">
-          <button @click="goBack" class="flex items-center gap-1">
-            <ArrowLeft class="w-5 max-w-5 self-end" />
-            <span>Back</span>
-          </button>
-        </div>
         
         <!-- Main Image Gallery -->
         <div class="mt-3 h-[550px] grid grid-cols-4 gap-5">
@@ -200,7 +193,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { 
-  ArrowLeft, 
   Camera, 
   MapPin, 
   Phone, 
@@ -227,10 +219,6 @@ onMounted(async () => {
     agent.value = await agentsService.getAgentById(agentId)
   }
 })
-
-function goBack() {
-  window.history.back()
-}
 
 function cleanPhone(phone?: string) {
   if (!phone) return ''

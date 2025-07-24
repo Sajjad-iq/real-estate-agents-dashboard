@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto px-4 py-8">
+  <div class="container mx-auto px-4 py-8 h-[100vh]">
     <!-- Page Header -->
     <div class="mb-8">
       <h1 class="text-4xl font-bold text-foreground mb-2">Agencies Dashboard</h1>
