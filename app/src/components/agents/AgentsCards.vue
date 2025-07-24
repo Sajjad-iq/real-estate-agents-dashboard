@@ -116,10 +116,7 @@
     </div>
 
     <!-- Pagination -->
-    <div class="flex items-center justify-between space-x-2 py-4" v-if="totalPages > 1">
-      <div class="text-sm text-muted-foreground">
-        {{ $t('agencies.pagination.showing') }} {{ startItem }} - {{ endItem }} {{ $t('agencies.pagination.of') }} {{ filteredAgents.length }}
-      </div>
+    <div class="flex flex-col md:flex-row gap-4 items-center justify-between space-x-2 py-4" v-if="totalPages > 1">
       <div class="flex items-center space-x-2 rtl:flex-row-reverse">
         <Button
           variant="outline"
@@ -152,6 +149,10 @@
           {{ $t('agencies.table.controls.next') }}
         </Button>
       </div>
+      <div class="text-sm text-muted-foreground">
+        {{ $t('agencies.pagination.showing') }} {{ startItem }} - {{ endItem }} {{ $t('agencies.pagination.of') }} {{ filteredAgents.length }}
+      </div>
+      
     </div>
 
     <!-- Edit Agent Dialog -->
