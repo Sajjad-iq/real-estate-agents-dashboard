@@ -58,11 +58,41 @@
     </div>
 
     <!-- Loading State -->
-    <div v-if="loading" class="flex items-center justify-center py-12">
-      <div class="text-center">
-        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto mb-4"></div>
-        <p class="text-gray-600">{{ $t('agencies.states.loading') }}</p>
+    <div v-if="loading">
+      <!-- Stats Cards Skeleton -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-4 gap-4 md:gap-6 mb-6 md:mb-8">
+        <Card v-for="i in 4" :key="i" class="p-4 md:p-6 stats-card card-enhanced">
+          <div class="flex items-center">
+            <div class="p-2 md:p-3 bg-muted rounded-lg md:rounded-xl flex-shrink-0">
+              <Skeleton class="h-5 w-5 md:h-7 md:w-7" />
+            </div>
+            <div class="ml-3 md:ml-4 rtl:mr-3 rtl:md:mr-4 min-w-0 flex-1 space-y-2">
+              <Skeleton class="h-4 w-24" />
+              <Skeleton class="h-8 w-16" />
+            </div>
+          </div>
+        </Card>
       </div>
+
+      <!-- Filter Bar Skeleton -->
+      <div class="flex flex-col gap-4 mb-6">
+        <div class="flex items-center gap-4 p-4 bg-muted/50 rounded-lg">
+          <Skeleton class="h-8 w-48" />
+          <Skeleton class="h-8 w-32" />
+          <Skeleton class="h-8 w-32" />
+          <Skeleton class="h-8 w-24" />
+        </div>
+        
+        <!-- View Toggle Skeleton -->
+        <div class="flex items-center gap-2 bg-muted rounded-lg p-1 w-fit">
+          <Skeleton class="h-8 w-20" />
+          <Skeleton class="h-8 w-20" />
+        </div>
+      </div>
+
+      <!-- Content Skeleton based on view mode -->
+      <AgentsTableSkeleton v-if="viewMode === 'table'" />
+      <AgentsCardsSkeleton v-else />
     </div>
 
     <!-- Error State -->
@@ -148,9 +178,12 @@
 import { onMounted, computed, ref } from 'vue';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
 import FilterBar from '@/components/ui/FilterBar.vue';
 import AgentsTable from '@/components/agents/AgentsTable.vue';
 import AgentsCards from '@/components/agents/AgentsCards.vue';
+import AgentsTableSkeleton from '@/components/agents/AgentsTableSkeleton.vue';
+import AgentsCardsSkeleton from '@/components/agents/AgentsCardsSkeleton.vue';
 import { useAgents } from '@/composables/useAgents';
 import type { Agent } from '@/types/agent';
 import { 

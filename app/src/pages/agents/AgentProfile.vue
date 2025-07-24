@@ -1,5 +1,74 @@
 <template>
   <div class="custom-container py-3 md:py-5 grid grid-cols-1 lg:grid-cols-10 gap-3 md:gap-5">
+    
+    <!-- Loading Skeleton -->
+    <template v-if="loading">
+      <!-- Main Content Skeleton (7 columns on desktop) -->
+      <div class="lg:col-span-7 rounded-xl p-3 md:p-5 bg-surfaceContainerLow order-2 lg:order-1">
+        <!-- Gallery Skeleton -->
+        <div class="mt-3 h-[300px] md:h-[400px] lg:h-[550px] rounded-lg overflow-hidden">
+          <Skeleton class="w-full h-full" />
+        </div>
+
+        <!-- Profile Section Skeleton -->
+        <div class="mt-3">
+          <div class="flex flex-col sm:flex-row items-center sm:items-start gap-4">
+            <!-- Avatar Skeleton -->
+            <Skeleton class="min-w-[80px] min-h-[80px] w-[80px] h-[80px] md:min-w-[120px] md:min-h-[120px] md:w-[120px] md:h-[120px] rounded-full" />
+            
+            <!-- Info Skeleton -->
+            <div class="w-full flex flex-col sm:flex-row sm:justify-between gap-4">
+              <div class="grow flex flex-col gap-1.5 text-center sm:text-left">
+                <Skeleton class="h-6 w-48 mx-auto sm:mx-0" />
+                <Skeleton class="h-4 w-36 mx-auto sm:mx-0" />
+                <Skeleton class="h-4 w-32 mx-auto sm:mx-0" />
+              </div>
+              <div class="flex justify-center sm:justify-end">
+                <Skeleton class="h-9 md:h-11 w-20" />
+              </div>
+            </div>
+          </div>
+          
+          <!-- Divider -->
+          <div class="mt-5 pb-4 border-b border-outline"></div>
+          
+          <!-- News Section Skeleton -->
+          <div class="mt-4">
+            <Skeleton class="h-6 w-24 mb-4" />
+            <div class="space-y-2">
+              <Skeleton class="h-4 w-full" />
+              <Skeleton class="h-4 w-5/6" />
+              <Skeleton class="h-4 w-2/3" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar Skeleton (3 columns on desktop) -->
+      <div class="lg:col-span-3 flex flex-col order-1 lg:order-2">
+        <!-- Contact Information Skeleton -->
+        <div class="rounded-xl p-3 md:p-5 bg-surfaceContainerLow flex flex-col gap-3 md:gap-5">
+          <Skeleton class="h-5 w-32" />
+          <div class="flex flex-col gap-2 md:gap-3">
+            <div v-for="i in 3" :key="i" class="border border-outlineVariant rounded-lg py-2 px-3 flex items-center gap-2">
+              <Skeleton class="w-6 h-6 md:w-8 md:h-8 rounded-lg" />
+              <Skeleton class="h-4 flex-1" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Map Skeleton -->
+        <div class="mt-3 md:mt-5 grow rounded-xl p-3 md:p-5 bg-surfaceContainerLow flex flex-col gap-3 md:gap-5">
+          <Skeleton class="h-5 w-28" />
+          <div class="min-h-48 md:min-h-52 h-full">
+            <Skeleton class="w-full h-full rounded-3xl" />
+          </div>
+        </div>
+      </div>
+    </template>
+
+    <!-- Actual Content -->
+    <template v-else>
     <!-- Main Content (7 columns on desktop, full width on mobile) -->
     <div class="lg:col-span-7 rounded-xl p-3 md:p-5 bg-surfaceContainerLow order-2 lg:order-1">
       <!-- Gallery Section -->
@@ -187,6 +256,7 @@
         </div>
       </div>
     </div>
+    </template>
   </div>
 </template>
 
@@ -201,6 +271,7 @@ import {
   Maximize,
   Eye
 } from 'lucide-vue-next'
+import { Skeleton } from '@/components/ui/skeleton'
 import type { Agent } from '@/types/agent'
 import { agentsService } from '@/services/agentsService'
 
@@ -208,6 +279,7 @@ import { agentsService } from '@/services/agentsService'
 const agentId = 'a1' // In real app, this would come from route params
 
 const agent = ref<Agent | null>(null)
+const loading = ref(true)
 const mapType = ref<'roadmap' | 'satellite'>('roadmap')
 
 // Sample agency images
@@ -216,7 +288,13 @@ const agencyAvatarImage = 'https://images.unsplash.com/photo-1486406146926-c627a
 
 onMounted(async () => {
   if (agentId) {
-    agent.value = await agentsService.getAgentById(agentId)
+    try {
+      agent.value = await agentsService.getAgentById(agentId)
+    } finally {
+      loading.value = false
+    }
+  } else {
+    loading.value = false
   }
 })
 
