@@ -17,6 +17,11 @@
         "audit": "Action Audit",
         "settings": "Settings"
     },
+    "common": {
+        "pageNotImplemented": "Page Under Construction",
+        "pageNotImplementedDescription": "This page is currently being developed and will be available soon. Thank you for your patience.",
+        "goBack": "Go Back"
+    },
     "brand": {
         "name": "Baity"
     },

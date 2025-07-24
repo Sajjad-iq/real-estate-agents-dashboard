@@ -17,6 +17,11 @@
         "audit": "مراجعة الإجراءات",
         "settings": "الإعدادات"
     },
+    "common": {
+        "pageNotImplemented": "صفحة قيد الإنشاء",
+        "pageNotImplementedDescription": "هذه الصفحة قيد التطوير حالياً وستكون متاحة قريباً. شكراً لصبركم.",
+        "goBack": "العودة"
+    },
     "brand": {
         "name": "بيتي"
     },

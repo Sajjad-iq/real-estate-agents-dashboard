@@ -29,7 +29,7 @@ import Sidebar from './Sidebar.vue'
 import TopNavbar from './TopNavbar.vue'
 
 interface Props {
-  currentView?: 'dashboard' | 'profile' | 'properties'
+  currentView?: 'dashboard' | 'profile' | 'properties' | 'subcategories' | 'users' | 'realtors' | 'engineering' | 'buildings' | 'customers' | 'realestates' | 'projects' | 'news' | 'bundles' | 'contact' | 'reports' | 'stats' | 'audit' | 'settings'
   pageTitle?: string
   showBackButton?: boolean
 }

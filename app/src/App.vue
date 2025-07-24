@@ -23,40 +23,62 @@ const router = useRouter()
 // Initialize RTL support
 useRTL()
 
-// Dynamic view based on route
-const currentView = computed(() => {
-  if (route.path.includes('/agents/') && route.path.includes('/properties')) {
-    return 'properties'
-  } else if (route.path.includes('/agents/') && route.params.agentId) {
-    return 'profile'
-  }
-  return 'dashboard'
-})
-
-// Dynamic page title
-const pageTitle = computed(() => {
-  switch (currentView.value) {
-    case 'profile':
-      return 'Agency Profile'
-    case 'properties':
-      return 'Agent Properties'
-    default:
-      return '' // No title for dashboard as it's handled by the page itself
-  }
-})
-
-// Show back button for detail pages
-const showBackButton = computed(() => {
-  return currentView.value === 'profile' || currentView.value === 'properties'
-})
+// Get values from route meta - this is the proper Vue Router way
+const currentView = computed(() => (route.meta.currentView as string) || 'dashboard')
+const pageTitle = computed(() => (route.meta.title as string) || '')
+const showBackButton = computed(() => (route.meta.showBackButton as boolean) || false)
 
 function handleNavigation(section: string) {
-  console.log('Navigate to:', section)
-  // Handle navigation between different sections
+  // Use named routes for navigation - this is the standard approach
   switch (section) {
+    case 'subcategories':
+      router.push({ name: 'subcategories' })
+      break
+    case 'users':
+      router.push({ name: 'users' })
+      break
+    case 'realtors':
+      router.push({ name: 'realtors' })
+      break
+    case 'engineering':
+      router.push({ name: 'engineering' })
+      break
+    case 'buildings':
+      router.push({ name: 'buildings' })
+      break
     case 'agencies':
     case 'agents':
       router.push({ name: 'agents' })
+      break
+    case 'customers':
+      router.push({ name: 'customers' })
+      break
+    case 'realestates':
+      router.push({ name: 'realestates' })
+      break
+    case 'projects':
+      router.push({ name: 'projects' })
+      break
+    case 'news':
+      router.push({ name: 'news' })
+      break
+    case 'bundles':
+      router.push({ name: 'bundles' })
+      break
+    case 'contact':
+      router.push({ name: 'contact' })
+      break
+    case 'reports':
+      router.push({ name: 'reports' })
+      break
+    case 'stats':
+      router.push({ name: 'stats' })
+      break
+    case 'audit':
+      router.push({ name: 'audit' })
+      break
+    case 'settings':
+      router.push({ name: 'settings' })
       break
     case 'dashboard':
       router.push({ name: 'agents' })
@@ -72,7 +94,7 @@ function handleGoBack() {
 
 function handleLanguageChange(language: string) {
   console.log('Language changed to:', language)
-  // Implement language switching logic here
+  // Language switching is handled by the i18n composable
 }
 </script>
 
