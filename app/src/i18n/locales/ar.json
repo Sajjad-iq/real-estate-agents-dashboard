@@ -25,6 +25,14 @@
             "title": "لوحة تحكم الوكالات",
             "subtitle": "إدارة ومراقبة شبكة الوكالات العقارية العراقية"
         },
+        "views": {
+            "table": "جدول",
+            "cards": "بطاقات"
+        },
+        "pagination": {
+            "showing": "عرض",
+            "of": "من"
+        },
         "stats": {
             "totalAgencies": "إجمالي الوكالات",
             "activeAgencies": "الوكالات النشطة",
@@ -96,6 +104,16 @@
                 "toDatePlaceholder": "إلى تاريخ",
                 "clearFilters": "مسح المرشحات"
             }
+        },
+        "cards": {
+            "totalItems": "وكالة",
+            "itemsPerPage": "في الصفحة",
+            "properties": "العقارات",
+            "branches": "الفروع",
+            "revenue": "الإيراد الشهري",
+            "clickForActions": "انقر للإجراءات",
+            "noAgencies": "لم يتم العثور على وكالات",
+            "noAgenciesDescription": "لا توجد وكالات لعرضها مع المرشحات الحالية."
         },
         "editDialog": {
             "title": "تعديل ملف الوكالة",

@@ -25,6 +25,14 @@
             "title": "Agencies Dashboard",
             "subtitle": "Manage and monitor your Iraqi real estate agency network"
         },
+        "views": {
+            "table": "Table",
+            "cards": "Cards"
+        },
+        "pagination": {
+            "showing": "Showing",
+            "of": "of"
+        },
         "stats": {
             "totalAgencies": "Total Agencies",
             "activeAgencies": "Active Agencies",
@@ -96,6 +104,16 @@
                 "toDatePlaceholder": "To date",
                 "clearFilters": "Clear Filters"
             }
+        },
+        "cards": {
+            "totalItems": "agencies",
+            "itemsPerPage": "per page",
+            "properties": "Properties",
+            "branches": "Branches",
+            "revenue": "Monthly Revenue",
+            "clickForActions": "Click for actions",
+            "noAgencies": "No Agencies Found",
+            "noAgenciesDescription": "There are no agencies to display with the current filters."
         },
         "editDialog": {
             "title": "Edit Agency Profile",

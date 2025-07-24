@@ -48,23 +48,51 @@
         </TableHeader>
         <TableBody>
           <template v-if="table.getRowModel().rows?.length">
-            <TableRow
-              v-for="row in table.getRowModel().rows"
-              :key="row.id"
-              :data-state="row.getIsSelected() && 'selected'"
-              class="hover:bg-primary/2 transition-colors"
-            >
-              <TableCell 
-                v-for="cell in row.getVisibleCells()" 
-                :key="cell.id"
-                :style="`width: ${cell.column.getSize()}px`"
-              >
-                <FlexRender
-                  :render="cell.column.columnDef.cell"
-                  :props="cell.getContext()"
-                />
-              </TableCell>
-            </TableRow>
+            <DropdownMenu v-for="row in table.getRowModel().rows" :key="row.id">
+              <DropdownMenuTrigger as-child>
+                <TableRow
+                  :data-state="row.getIsSelected() && 'selected'"
+                  class="hover:bg-primary/2 transition-colors cursor-pointer"
+                >
+                  <TableCell 
+                    v-for="cell in row.getVisibleCells()" 
+                    :key="cell.id"
+                    :style="`width: ${cell.column.getSize()}px`"
+                    @click="handleCellClick(cell.column.id, $event)"
+                  >
+                    <FlexRender
+                      :render="cell.column.columnDef.cell"
+                      :props="cell.getContext()"
+                    />
+                  </TableCell>
+                </TableRow>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="center" class="w-48">
+                <DropdownMenuLabel>{{ row.original.name }}</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem @click="viewProfile(row.original)">
+                  <User class="mr-2 h-4 w-4" />
+                  {{ t('agencies.table.actions.viewProfile') }}
+                </DropdownMenuItem>
+                <DropdownMenuItem @click="editProfile(row.original)">
+                  <Edit class="mr-2 h-4 w-4" />
+                  {{ t('agencies.table.actions.editProfile') }}
+                </DropdownMenuItem>
+                <DropdownMenuItem @click="viewProperties(row.original)">
+                  <Building class="mr-2 h-4 w-4" />
+                  {{ t('agencies.table.actions.viewProperties') }}
+                </DropdownMenuItem>
+                <DropdownMenuItem @click="sendWhatsApp(row.original)">
+                  <MessageCircle class="mr-2 h-4 w-4" />
+                  {{ t('agencies.table.actions.sendWhatsApp') }}
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem @click="deleteAgent(row.original)" class="text-red-600 focus:text-red-600">
+                  <Trash2 class="mr-2 h-4 w-4" />
+                  {{ t('agencies.table.actions.deleteAgent') }}
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </template>
           <TableRow v-else>
             <TableCell :colspan="columns.length" class="h-24 text-center">
@@ -76,17 +104,17 @@
     </div>
 
     <!-- Pagination -->
-    <div class="flex items-center justify-between space-x-2 py-4">
+    <div class="flex items-center justify-between space-x-2 py-4" v-if="table.getPageCount() > 1">
       <div class="text-sm text-muted-foreground">
-        {{ table.getFilteredSelectedRowModel().rows.length }} {{ $t('agencies.table.controls.selectedRows') }} {{ table.getFilteredRowModel().rows.length }}.
+        {{ $t('agencies.pagination.showing') }} {{ startItem }} - {{ endItem }} {{ $t('agencies.pagination.of') }} {{ table.getFilteredRowModel().rows.length }}
       </div>
       <div class="flex items-center space-x-2">
         <p class="text-sm font-medium">{{ $t('agencies.table.controls.rowsPerPage') }}</p>
-                 <select
-           :value="table.getState().pagination.pageSize"
-           @change="table.setPageSize(Number(($event.target as HTMLSelectElement).value))"
-           class="h-8 w-[70px] rounded border border-input bg-background text-sm"
-         >
+        <select
+          :value="table.getState().pagination.pageSize"
+          @change="table.setPageSize(Number(($event.target as HTMLSelectElement).value))"
+          class="h-8 w-[70px] rounded border border-input bg-background text-sm"
+        >
           <option value="10">10</option>
           <option value="20">20</option>
           <option value="30">30</option>
@@ -102,6 +130,20 @@
         >
           {{ $t('agencies.table.controls.previous') }}
         </Button>
+        
+        <div class="flex items-center space-x-1">
+          <Button
+            v-for="page in visibleTablePages"
+            :key="page"
+            :variant="page === table.getState().pagination.pageIndex + 1 ? 'default' : 'outline'"
+            size="sm"
+            @click="table.setPageIndex(page - 1)"
+            class="w-8 h-8 p-0"
+          >
+            {{ page }}
+          </Button>
+        </div>
+        
         <Button
           variant="outline"
           size="sm"
@@ -138,7 +180,7 @@ import {
   getSortedRowModel,
   useVueTable,
 } from '@tanstack/vue-table'
-import { ArrowUpDown, ChevronDown, MoreHorizontal, User, Edit, Building, MessageCircle, Trash2 } from 'lucide-vue-next'
+import { ArrowUpDown, ChevronDown, User, Edit, Building, MessageCircle, Trash2 } from 'lucide-vue-next'
 import { h, ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
@@ -189,6 +231,36 @@ const isRTL = computed(() => {
     return document.documentElement.dir === 'rtl'
   }
   return false
+})
+
+// Pagination computed properties
+const startItem = computed(() => 
+  table.getFilteredRowModel().rows.length === 0 ? 0 : table.getState().pagination.pageIndex * table.getState().pagination.pageSize + 1
+)
+
+const endItem = computed(() => 
+  Math.min((table.getState().pagination.pageIndex + 1) * table.getState().pagination.pageSize, table.getFilteredRowModel().rows.length)
+)
+
+const visibleTablePages = computed(() => {
+  const pages = []
+  const maxVisible = 5
+  const currentPage = table.getState().pagination.pageIndex + 1
+  const totalPages = table.getPageCount()
+  
+  let start = Math.max(1, currentPage - Math.floor(maxVisible / 2))
+  let end = Math.min(totalPages, start + maxVisible - 1)
+  
+  // Adjust start if we're near the end
+  if (end - start + 1 < maxVisible) {
+    start = Math.max(1, end - maxVisible + 1)
+  }
+  
+  for (let i = start; i <= end; i++) {
+    pages.push(i)
+  }
+  
+  return pages
 })
 
 // Edit dialog state
@@ -307,73 +379,6 @@ const columns: ColumnDef<Agent>[] = [
     header: () => t('agencies.table.columns.status'),
          cell: ({ row }) => h(StatusBadge, { status: row.getValue('status') as 'active' | 'pending' | 'refused' }),
   },
-  {
-    id: 'actions',
-    enableHiding: false,
-    cell: ({ row }) => {
-      const agent = row.original
-
-      return h(DropdownMenu, {}, {
-        default: () => [
-          h(DropdownMenuTrigger, { asChild: true }, {
-            default: () => h(Button, { variant: 'ghost', class: 'h-8 w-8 p-0' }, {
-              default: () => [
-                h('span', { class: 'sr-only' }, t('agencies.table.controls.openMenu')),
-                h(MoreHorizontal, { class: 'h-4 w-4' })
-              ]
-            })
-          }),
-          h(DropdownMenuContent, { align: 'end' }, {
-            default: () => [
-              h(DropdownMenuLabel, {}, t('agencies.table.columns.actions')),
-              h(DropdownMenuItem, { 
-                onClick: () => viewProfile(agent)
-              }, {
-                default: () => [
-                  h(User, { class: 'mr-2 h-4 w-4' }),
-                  t('agencies.table.actions.viewProfile')
-                ]
-              }),
-              h(DropdownMenuItem, { 
-                onClick: () => editProfile(agent)
-              }, {
-                default: () => [
-                  h(Edit, { class: 'mr-2 h-4 w-4' }),
-                  t('agencies.table.actions.editProfile')
-                ]
-              }),
-              h(DropdownMenuItem, { 
-                onClick: () => viewProperties(agent)
-              }, {
-                default: () => [
-                  h(Building, { class: 'mr-2 h-4 w-4' }),
-                  t('agencies.table.actions.viewProperties')
-                ]
-              }),
-              h(DropdownMenuItem, { 
-                onClick: () => sendWhatsApp(agent)
-              }, {
-                default: () => [
-                  h(MessageCircle, { class: 'mr-2 h-4 w-4' }),
-                  t('agencies.table.actions.sendWhatsApp')
-                ]
-              }),
-              h(DropdownMenuSeparator),
-              h(DropdownMenuItem, { 
-                onClick: () => deleteAgent(agent),
-                class: 'text-red-600 focus:text-red-600'
-              }, {
-                default: () => [
-                  h(Trash2, { class: 'mr-2 h-4 w-4' }),
-                  t('agencies.table.actions.deleteAgent')
-                ]
-              }),
-            ]
-          })
-        ]
-      })
-    },
-  },
 ]
 
 // Table state
@@ -439,6 +444,14 @@ async function deleteAgent(agent: Agent) {
     if (success) {
       emit('agentDeleted', agent.id)
     }
+  }
+}
+
+// Handle cell clicks to prevent dropdown on interactive elements
+function handleCellClick(columnId: string, event: Event) {
+  // Prevent dropdown from opening when clicking on checkbox or other interactive elements
+  if (columnId === 'select') {
+    event.stopPropagation()
   }
 }
 </script>

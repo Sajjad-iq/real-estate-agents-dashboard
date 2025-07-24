@@ -81,8 +81,32 @@
 
     <!-- Dashboard Content -->
     <div v-else>
-      <!-- Filter Bar -->
-      <FilterBar v-model="filters" @update:model-value="updateFilters" />
+      <!-- Filter Bar and View Toggle -->
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+        <FilterBar v-model="filters" @update:model-value="updateFilters" class="flex-1" />
+        
+        <!-- View Toggle -->
+        <div class="flex items-center space-x-2 bg-muted rounded-lg p-1">
+          <Button
+            :variant="viewMode === 'table' ? 'default' : 'ghost'"
+            size="sm"
+            @click="viewMode = 'table'"
+            class="px-3"
+          >
+            <Grid3X3 class="w-4 h-4 mr-2" />
+            {{ $t('agencies.views.table') }}
+          </Button>
+          <Button
+            :variant="viewMode === 'cards' ? 'default' : 'ghost'"
+            size="sm"
+            @click="viewMode = 'cards'"
+            class="px-3"
+          >
+            <LayoutGrid class="w-4 h-4 mr-2" />
+            {{ $t('agencies.views.cards') }}
+          </Button>
+        </div>
+      </div>
 
       <!-- Empty State -->
       <div v-if="filteredAgents.length === 0" class="text-center py-12">
@@ -98,23 +122,35 @@
         </Button>
       </div>
 
-      <!-- Agents Table -->
-      <AgentsTable 
-        v-else
-        :agents="filteredAgents"
-        @agent-deleted="handleAgentDeleted"
-        @agent-updated="handleAgentUpdated"
-      />
+      <!-- Agents Display -->
+      <div v-else>
+        <!-- Table View -->
+        <AgentsTable 
+          v-if="viewMode === 'table'"
+          :agents="filteredAgents"
+          @agent-deleted="handleAgentDeleted"
+          @agent-updated="handleAgentUpdated"
+        />
+        
+        <!-- Cards View -->
+        <AgentsCards 
+          v-else-if="viewMode === 'cards'"
+          :agents="filteredAgents"
+          @agent-deleted="handleAgentDeleted"
+          @agent-updated="handleAgentUpdated"
+        />
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, computed } from 'vue';
+import { onMounted, computed, ref } from 'vue';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import FilterBar from '@/components/ui/FilterBar.vue';
 import AgentsTable from '@/components/agents/AgentsTable.vue';
+import AgentsCards from '@/components/agents/AgentsCards.vue';
 import { useAgents } from '@/composables/useAgents';
 import type { Agent } from '@/types/agent';
 import { 
@@ -122,7 +158,9 @@ import {
   CheckCircle, 
   Clock, 
   DollarSign, 
-  AlertCircle 
+  AlertCircle,
+  Grid3X3,
+  LayoutGrid
 } from 'lucide-vue-next';
 import type { AgentFilters } from '@/types/agent';
 
@@ -137,6 +175,9 @@ const {
   removeAgent,
   updateFilters: updateFiltersComposable,
 } = useAgents();
+
+// View mode state
+const viewMode = ref<'table' | 'cards'>('table');
 
 // Computed stats
 const totalAgents = computed(() => agents.value.length);
