@@ -202,13 +202,4 @@ const router = createRouter({
     ]
 })
 
-// Navigation guards
-router.beforeEach((to, from, next) => {
-    // Set document title based on route meta
-    if (to.meta.title) {
-        document.title = `${to.meta.title} - Real Estate Dashboard`
-    }
-    next()
-})
-
 export default router 

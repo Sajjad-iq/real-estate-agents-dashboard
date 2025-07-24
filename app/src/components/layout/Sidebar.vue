@@ -169,7 +169,7 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import {
   Layers,
   User,
@@ -193,6 +193,7 @@ const emit = defineEmits<{
 }>()
 
 const route = useRoute()
+const router = useRouter()
 const activeItem = ref('agencies') // Default to agencies since that's our main section
 
 // Update active item based on current route
@@ -211,6 +212,20 @@ onMounted(() => {
 function navigateTo(section: string) {
   activeItem.value = section
   emit('navigate', section)
+  // Map section to route path
+  let path = '/'
+  switch (section) {
+    case 'agencies':
+      path = '/agents'
+      break
+    case 'users':
+      path = '/users'
+      break
+    // Add other cases for each section...
+    default:
+      path = `/${section}`
+  }
+  router.push(path)
 }
 </script>
 
