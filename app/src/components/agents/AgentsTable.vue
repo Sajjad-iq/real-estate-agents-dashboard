@@ -48,8 +48,8 @@
     </div>
 
     <!-- Data Table -->
-    <div class="card-enhanced rounded-md border overflow-auto">
-      <Table class="table-modern min-w-full" :style="`width: ${table.getCenterTotalSize()}px`">
+    <div class="card-enhanced rounded-md border w-full overflow-auto">
+      <Table class="table-modern min-w-full w-full" :style="`width: ${table.getCenterTotalSize()}px`">
         <TableHeader>
           <TableRow v-for="headerGroup in table.getHeaderGroups()" :key="headerGroup.id">
             <TableHead 
@@ -66,7 +66,7 @@
 
             </TableHead>
           </TableRow>
-        </TableHeader>
+        </TableHeader class="w-full">
         <TableBody>
           <template v-if="table.getRowModel().rows?.length">
             <DropdownMenu v-for="row in table.getRowModel().rows" :key="row.id">

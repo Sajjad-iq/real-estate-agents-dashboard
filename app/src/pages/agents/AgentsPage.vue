@@ -7,51 +7,51 @@
     </div>
 
     <!-- Stats Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-      <Card class="p-6 stats-card card-enhanced">
+    <div class="grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-4 gap-4 md:gap-6 mb-6 md:mb-8">
+      <Card class="p-4 md:p-6 stats-card card-enhanced">
         <div class="flex items-center">
-          <div class="p-3 bg-primary/10 rounded-xl">
-            <User class="h-7 w-7 text-primary" />
+          <div class="p-2 md:p-3 bg-primary/10 rounded-lg md:rounded-xl flex-shrink-0">
+            <User class="h-5 w-5 md:h-7 md:w-7 text-primary" />
           </div>
-          <div class="ml-4 rtl:mr-4">
-            <p class="text-sm text-muted-foreground font-medium">{{ $t('agencies.stats.totalAgencies') }}</p>
-            <p class="text-3xl font-bold text-foreground">{{ totalAgents }}</p>
+          <div class="ml-3 md:ml-4 rtl:mr-3 rtl:md:mr-4 min-w-0 flex-1">
+            <p class="text-xs md:text-sm text-muted-foreground font-medium truncate">{{ $t('agencies.stats.totalAgencies') }}</p>
+            <p class="text-xl md:text-3xl font-bold text-foreground">{{ totalAgents }}</p>
           </div>
         </div>
       </Card>
       
-      <Card class="p-6 stats-card card-enhanced">
+      <Card class="p-4 md:p-6 stats-card card-enhanced">
         <div class="flex items-center">
-          <div class="p-3 bg-teal-100 rounded-xl">
-            <CheckCircle class="h-7 w-7 text-teal-600" />
+          <div class="p-2 md:p-3 bg-teal-100 rounded-lg md:rounded-xl flex-shrink-0">
+            <CheckCircle class="h-5 w-5 md:h-7 md:w-7 text-teal-600" />
           </div>
-          <div class="ml-4 rtl:mr-4">
-            <p class="text-sm text-muted-foreground font-medium">{{ $t('agencies.stats.activeAgencies') }}</p>
-            <p class="text-3xl font-bold text-teal-700">{{ activeAgents }}</p>
+          <div class="ml-3 md:ml-4 rtl:mr-3 rtl:md:mr-4 min-w-0 flex-1">
+            <p class="text-xs md:text-sm text-muted-foreground font-medium truncate">{{ $t('agencies.stats.activeAgencies') }}</p>
+            <p class="text-xl md:text-3xl font-bold text-teal-700">{{ activeAgents }}</p>
           </div>
         </div>
       </Card>
       
-      <Card class="p-6 stats-card card-enhanced">
+      <Card class="p-4 md:p-6 stats-card card-enhanced">
         <div class="flex items-center">
-          <div class="p-3 bg-amber-100 rounded-xl">
-            <Clock class="h-7 w-7 text-amber-600" />
+          <div class="p-2 md:p-3 bg-amber-100 rounded-lg md:rounded-xl flex-shrink-0">
+            <Clock class="h-5 w-5 md:h-7 md:w-7 text-amber-600" />
           </div>
-          <div class="ml-4 rtl:mr-4">
-            <p class="text-sm text-muted-foreground font-medium">{{ $t('agencies.stats.pending') }}</p>
-            <p class="text-3xl font-bold text-amber-700">{{ pendingAgents }}</p>
+          <div class="ml-3 md:ml-4 rtl:mr-3 rtl:md:mr-4 min-w-0 flex-1">
+            <p class="text-xs md:text-sm text-muted-foreground font-medium truncate">{{ $t('agencies.stats.pending') }}</p>
+            <p class="text-xl md:text-3xl font-bold text-amber-700">{{ pendingAgents }}</p>
           </div>
         </div>
       </Card>
       
-      <Card class="p-6 stats-card card-enhanced">
+      <Card class="p-4 md:p-6 stats-card card-enhanced">
         <div class="flex items-center">
-          <div class="p-3 bg-primary/10 rounded-xl">
-            <DollarSign class="h-7 w-7 text-primary" />
+          <div class="p-2 md:p-3 bg-primary/10 rounded-lg md:rounded-xl flex-shrink-0">
+            <DollarSign class="h-5 w-5 md:h-7 md:w-7 text-primary" />
           </div>
-          <div class="ml-4 rtl:mr-4">
-            <p class="text-sm text-muted-foreground font-medium">{{ $t('agencies.stats.totalRevenue') }}</p>
-            <p class="text-3xl font-bold text-primary">${{ totalRevenue.toLocaleString() }}</p>
+          <div class="ml-3 md:ml-4 rtl:mr-3 rtl:md:mr-4 min-w-0 flex-1">
+            <p class="text-xs md:text-sm text-muted-foreground font-medium truncate">{{ $t('agencies.stats.totalRevenue') }}</p>
+            <p class="text-xl md:text-3xl font-bold text-primary">${{ totalRevenue.toLocaleString() }}</p>
           </div>
         </div>
       </Card>
@@ -82,11 +82,11 @@
     <!-- Dashboard Content -->
     <div v-else>
       <!-- Filter Bar and View Toggle -->
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+      <div class="flex flex-col gap-4 mb-6">
         <FilterBar v-model="filters" @update:model-value="updateFilters" class="flex-1" />
         
         <!-- View Toggle -->
-        <div class="flex items-center space-x-2 bg-muted rounded-lg p-1">
+        <div class="flex items-center gap-2 bg-muted rounded-lg p-1 w-fit">
           <Button
             :variant="viewMode === 'table' ? 'default' : 'ghost'"
             size="sm"

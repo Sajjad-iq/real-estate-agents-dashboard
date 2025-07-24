@@ -30,9 +30,9 @@
           <Card class="p-4 hover:shadow-lg transition-all duration-200 cursor-pointer group border-2 hover:border-primary/20">
             <div class="space-y-3">
               <!-- Header with Avatar and Status -->
-              <div class="flex items-start justify-between">
-                <div class="flex items-center space-x-3">
-                  <div class="w-12 h-12 bg-gradient-to-br from-primary/20 to-primary/10 rounded-full flex items-center justify-center">
+              <div class="flex items-start justify-between gap-3">
+                <div class="flex items-center space-x-3 min-w-0 flex-1">
+                  <div class="w-12 h-12 bg-gradient-to-br from-primary/20 to-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
                     <Building class="w-6 h-6 text-primary" />
                   </div>
                   <div class="flex-1 min-w-0">
@@ -40,7 +40,7 @@
                     <p class="text-xs text-muted-foreground truncate">{{ agent.address }}</p>
                   </div>
                 </div>
-                <StatusBadge :status="agent.status" class="flex-shrink-0" />
+                <StatusBadge :status="agent.status" class="flex-shrink-0 mt-1" />
               </div>
 
               <!-- Contact Info -->
