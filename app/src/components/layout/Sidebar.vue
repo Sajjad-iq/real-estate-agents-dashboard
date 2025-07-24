@@ -185,13 +185,7 @@
         >
           <Moon class="theme-icon" />
         </button>
-        <button
-          @click="setTheme('system')"
-          :class="['theme-option', { 'active': theme === 'system' }]"
-          :title="$t('theme.system')"
-        >
-          <Monitor class="theme-icon" />
-        </button>
+
       </div>
     </div>
   </div>
@@ -218,8 +212,7 @@ import {
   FileCheck,
   Settings,
   Sun,
-  Moon,
-  Monitor
+  Moon
 } from 'lucide-vue-next'
 
 const emit = defineEmits<{

@@ -8,9 +8,8 @@ import router from './router'
 import { queryClient } from './lib/queryClient'
 
 // Initialize theme early to prevent flash
-const savedTheme = localStorage.getItem('theme-preference') || 'system'
-const isDark = savedTheme === 'dark' ||
-    (savedTheme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)
+const savedTheme = localStorage.getItem('theme-preference') || 'light'
+const isDark = savedTheme === 'dark'
 
 if (isDark) {
     document.documentElement.classList.add('dark')

@@ -28,8 +28,7 @@
     "theme": {
         "appearance": "Appearance",
         "light": "Light Theme",
-        "dark": "Dark Theme",
-        "system": "System Theme"
+        "dark": "Dark Theme"
     },
     "agencies": {
         "dashboard": {

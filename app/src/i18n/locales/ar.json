@@ -28,8 +28,7 @@
     "theme": {
         "appearance": "المظهر",
         "light": "المظهر الفاتح",
-        "dark": "المظهر الداكن",
-        "system": "مظهر النظام"
+        "dark": "المظهر الداكن"
     },
     "agencies": {
         "dashboard": {
