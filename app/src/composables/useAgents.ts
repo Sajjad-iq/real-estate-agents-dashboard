@@ -1,16 +1,29 @@
-import { ref, computed, watch } from 'vue';
+import { ref, computed } from 'vue';
+import { useQuery, useQueryClient } from '@tanstack/vue-query';
 import type { Agent, AgentFilters, SortState } from '@/types/agent';
 import { agentsService } from '@/services/agentsService';
+import { queryKeys } from '@/lib/queryClient';
 
 export function useAgents() {
-    const agents = ref<Agent[]>([]);
-    const loading = ref(false);
-    const error = ref<string | null>(null);
     const filters = ref<AgentFilters>({});
     const sortState = ref<SortState>({ column: null, direction: 'asc' });
+    const queryClient = useQueryClient();
+
+    // Use TanStack Query for caching and data management
+    const {
+        data: agents,
+        isLoading: loading,
+        error,
+        refetch: loadAgents
+    } = useQuery({
+        queryKey: queryKeys.agents.all(),
+        queryFn: () => agentsService.getAgents(),
+    });
 
     // Computed filtered agents
     const filteredAgents = computed(() => {
+        if (!agents.value) return [];
+
         return agents.value.filter(agent => {
             // Status filter
             if (filters.value.status && filters.value.status !== 'all' && agent.status !== filters.value.status) {
@@ -37,26 +50,35 @@ export function useAgents() {
         });
     });
 
-    // Load agents data
-    async function loadAgents() {
-        try {
-            loading.value = true;
-            error.value = null;
-            agents.value = await agentsService.getAgents();
-        } catch (err) {
-            error.value = err instanceof Error ? err.message : 'Failed to load agents';
-            console.error('Error loading agents:', err);
-        } finally {
-            loading.value = false;
-        }
+    // Remove agent from cache and local state
+    function removeAgent(agentId: string) {
+        queryClient.setQueryData<Agent[]>(queryKeys.agents.all(), (oldData) => {
+            if (!oldData) return [];
+            return oldData.filter(agent => agent.id !== agentId);
+        });
     }
 
-    // Remove agent from local state
-    function removeAgent(agentId: string) {
-        const index = agents.value.findIndex(agent => agent.id === agentId);
-        if (index > -1) {
-            agents.value.splice(index, 1);
-        }
+    // Update agent in cache
+    function updateAgent(updatedAgent: Agent) {
+        queryClient.setQueryData<Agent[]>(queryKeys.agents.all(), (oldData) => {
+            if (!oldData) return [updatedAgent];
+            return oldData.map(agent =>
+                agent.id === updatedAgent.id ? updatedAgent : agent
+            );
+        });
+    }
+
+    // Add new agent to cache
+    function addAgent(newAgent: Agent) {
+        queryClient.setQueryData<Agent[]>(queryKeys.agents.all(), (oldData) => {
+            if (!oldData) return [newAgent];
+            return [...oldData, newAgent];
+        });
+    }
+
+    // Invalidate and refetch agents data
+    function invalidateAgents() {
+        queryClient.invalidateQueries({ queryKey: queryKeys.agents.all() });
     }
 
     // Update filters
@@ -70,7 +92,7 @@ export function useAgents() {
     }
 
     return {
-        agents,
+        agents: computed(() => agents.value || []),
         filteredAgents,
         loading,
         error,
@@ -78,6 +100,9 @@ export function useAgents() {
         sortState,
         loadAgents,
         removeAgent,
+        updateAgent,
+        addAgent,
+        invalidateAgents,
         updateFilters,
         updateSort,
     };

@@ -104,7 +104,7 @@
           <p class="text-red-700">{{ error }}</p>
         </div>
       </div>
-      <Button @click="loadAgents" class="mt-4" variant="outline">
+      <Button @click="() => loadAgents()" class="mt-4" variant="outline">
         {{ $t('agencies.states.tryAgain') }}
       </Button>
     </div>
@@ -175,7 +175,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, computed, ref } from 'vue';
+import { computed, ref } from 'vue';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -206,6 +206,7 @@ const {
   filters,
   loadAgents,
   removeAgent,
+  updateAgent,
   updateFilters: updateFiltersComposable,
 } = useAgents();
 
@@ -241,14 +242,9 @@ function handleAgentDeleted(agentId: string) {
 }
 
 function handleAgentUpdated(updatedAgent: Agent) {
-  const index = agents.value.findIndex(agent => agent.id === updatedAgent.id)
-  if (index !== -1) {
-    agents.value[index] = updatedAgent
-  }
+  updateAgent(updatedAgent);
 }
 
-// Load data on component mount
-onMounted(() => {
-  loadAgents();
-});
+// TanStack Query automatically loads data, but we can trigger refetch if needed
+// The query will automatically run when the component mounts
 </script> 
