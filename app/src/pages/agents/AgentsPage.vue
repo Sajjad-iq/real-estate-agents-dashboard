@@ -2,7 +2,7 @@
   <div class="container mx-auto px-4 py-8">
     <!-- Page Header -->
     <div class="mb-8">
-      <h1 class="text-4xl font-bold text-foreground mb-2">Real Estate Agencies Dashboard</h1>
+      <h1 class="text-4xl font-bold text-foreground mb-2">Agencies Dashboard</h1>
       <p class="text-muted-foreground text-lg">Manage and monitor your Iraqi real estate agency network</p>
     </div>
 

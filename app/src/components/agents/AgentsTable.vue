@@ -27,15 +27,30 @@
     </div>
 
     <!-- Data Table -->
-    <div class="card-enhanced rounded-md border">
-      <Table class="table-modern">
+    <div class="card-enhanced rounded-md border overflow-auto">
+      <Table class="table-modern min-w-full" :style="`width: ${table.getCenterTotalSize()}px`">
         <TableHeader>
           <TableRow v-for="headerGroup in table.getHeaderGroups()" :key="headerGroup.id">
-            <TableHead v-for="header in headerGroup.headers" :key="header.id">
+            <TableHead 
+              v-for="header in headerGroup.headers" 
+              :key="header.id"
+              :style="`width: ${header.getSize()}px`"
+              class="relative"
+            >
               <FlexRender
                 v-if="!header.isPlaceholder"
                 :render="header.column.columnDef.header"
                 :props="header.getContext()"
+              />
+              <!-- Column Resizer -->
+              <div
+                v-if="header.column.getCanResize()"
+                @mousedown="header.getResizeHandler()?.($event)"
+                @touchstart="header.getResizeHandler()?.($event)"
+                class="absolute top-0 right-0 h-full w-[2px] bg-gray-200 hover:bg-primary cursor-col-resize select-none touch-none transition-colors"
+                :class="{
+                  'bg-primary': header.column.getIsResizing()
+                }"
               />
             </TableHead>
           </TableRow>
@@ -48,7 +63,11 @@
               :data-state="row.getIsSelected() && 'selected'"
               class="hover:bg-primary/2 transition-colors"
             >
-              <TableCell v-for="cell in row.getVisibleCells()" :key="cell.id">
+              <TableCell 
+                v-for="cell in row.getVisibleCells()" 
+                :key="cell.id"
+                :style="`width: ${cell.column.getSize()}px`"
+              >
                 <FlexRender
                   :render="cell.column.columnDef.cell"
                   :props="cell.getContext()"
@@ -110,6 +129,7 @@
 import type {
   ColumnDef,
   ColumnFiltersState,
+  ColumnSizingState,
   SortingState,
   VisibilityState,
 } from '@tanstack/vue-table'
@@ -136,7 +156,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { Input } from '@/components/ui/input'
 import {
   Table,
   TableBody,
@@ -196,7 +215,7 @@ const columns: ColumnDef<Agent>[] = [
   {
     accessorKey: 'address',
     header: 'Address',
-    cell: ({ row }) => h('div', { class: 'max-w-[200px] truncate' }, row.getValue('address')),
+    cell: ({ row }) => h('div', { class: 'truncate' }, row.getValue('address')),
   },
   {
     accessorKey: 'joinDate',
@@ -345,6 +364,7 @@ const columns: ColumnDef<Agent>[] = [
 const sorting = ref<SortingState>([])
 const columnFilters = ref<ColumnFiltersState>([])
 const columnVisibility = ref<VisibilityState>({})
+const columnSizing = ref<ColumnSizingState>({})
 const rowSelection = ref({})
 
 const table = useVueTable({
@@ -354,14 +374,18 @@ const table = useVueTable({
   getPaginationRowModel: getPaginationRowModel(),
   getSortedRowModel: getSortedRowModel(),
   getFilteredRowModel: getFilteredRowModel(),
+  enableColumnResizing: true,
+  columnResizeMode: 'onChange',
   onSortingChange: updaterOrValue => valueUpdater(updaterOrValue, sorting),
   onColumnFiltersChange: updaterOrValue => valueUpdater(updaterOrValue, columnFilters),
   onColumnVisibilityChange: updaterOrValue => valueUpdater(updaterOrValue, columnVisibility),
+  onColumnSizingChange: updaterOrValue => valueUpdater(updaterOrValue, columnSizing),
   onRowSelectionChange: updaterOrValue => valueUpdater(updaterOrValue, rowSelection),
   state: {
     get sorting() { return sorting.value },
     get columnFilters() { return columnFilters.value },
     get columnVisibility() { return columnVisibility.value },
+    get columnSizing() { return columnSizing.value },
     get rowSelection() { return rowSelection.value },
   },
 })
