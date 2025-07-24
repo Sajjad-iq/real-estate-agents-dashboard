@@ -8,10 +8,10 @@
       <!-- Page Header -->
       <div class="flex items-center justify-between">
         <div>
-          <h1 class="text-3xl font-bold text-gray-900">
+          <h1 class="text-3xl font-bold text-foreground">
             {{ $t('properties.title') }}
           </h1>
-          <p class="text-gray-600 mt-1" v-if="agent">
+          <p class="text-muted-foreground mt-1" v-if="agent">
             {{ $t('properties.subtitle', { agentName: agent.name, count: properties.length }) }}
           </p>
         </div>
@@ -24,13 +24,13 @@
       <!-- Agent Info Card -->
       <Card v-if="agent" class="p-6">
         <div class="flex items-center gap-4">
-          <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
-            <Building class="w-8 h-8 text-blue-600" />
+          <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center">
+            <Building class="w-8 h-8 text-primary" />
           </div>
           <div>
-            <h2 class="text-xl font-semibold text-gray-900">{{ agent.name }}</h2>
-            <p class="text-gray-600">{{ agent.address }}</p>
-            <div class="flex items-center gap-4 mt-2 text-sm text-gray-500">
+            <h2 class="text-xl font-semibold text-foreground">{{ agent.name }}</h2>
+            <p class="text-muted-foreground">{{ agent.address }}</p>
+            <div class="flex items-center gap-4 mt-2 text-sm text-muted-foreground">
               <span class="flex items-center gap-1">
                 <Phone class="w-4 h-4" />
                 {{ agent.phone }}
@@ -46,9 +46,9 @@
 
           <!-- Error State -->
       <div v-if="error" class="text-center py-12">
-        <AlertCircle class="w-12 h-12 text-red-500 mx-auto mb-4" />
-        <h3 class="text-lg font-medium text-gray-900 mb-2">{{ $t('properties.states.error') }}</h3>
-        <p class="text-gray-600 mb-4">{{ error }}</p>
+        <AlertCircle class="w-12 h-12 text-destructive mx-auto mb-4" />
+        <h3 class="text-lg font-medium text-foreground mb-2">{{ $t('properties.states.error') }}</h3>
+        <p class="text-muted-foreground mb-4">{{ error }}</p>
         <Button @click="loadProperties" variant="outline">
           {{ $t('properties.states.tryAgain') }}
         </Button>
@@ -73,9 +73,9 @@
               </TableRow>
             </TableHeader>
             <TableBody>
-              <TableRow v-for="property in properties" :key="property.id" class="hover:bg-gray-50">
+              <TableRow v-for="property in properties" :key="property.id" class="hover:bg-muted/50">
                 <TableCell>
-                  <div class="w-16 h-16 bg-gray-200 rounded-lg overflow-hidden">
+                  <div class="w-16 h-16 bg-muted rounded-lg overflow-hidden">
                     <img 
                       :src="property.image" 
                       :alt="property.title"
@@ -86,40 +86,40 @@
                 </TableCell>
                 <TableCell>
                   <div>
-                    <p class="font-medium text-gray-900">{{ property.title }}</p>
-                    <p class="text-sm text-gray-500">{{ $t('properties.table.id') }}: {{ property.id }}</p>
+                    <p class="font-medium text-foreground">{{ property.title }}</p>
+                    <p class="text-sm text-muted-foreground">{{ $t('properties.table.id') }}: {{ property.id }}</p>
                   </div>
                 </TableCell>
                 <TableCell>
-                  <span class="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">
+                  <span class="px-2 py-1 text-xs font-medium bg-primary/10 text-primary rounded-full">
                     {{ $t(`properties.types.${property.type}`) }}
                   </span>
                 </TableCell>
                 <TableCell>
                   <div class="flex items-center gap-1">
-                    <MapPin class="w-4 h-4 text-gray-400" />
-                    <span class="text-sm">{{ property.location }}</span>
+                    <MapPin class="w-4 h-4 text-muted-foreground" />
+                    <span class="text-sm text-foreground">{{ property.location }}</span>
                   </div>
                 </TableCell>
                 <TableCell>
-                  <span class="font-semibold text-green-600">
+                  <span class="font-semibold text-green-600 dark:text-green-400">
                     {{ formatCurrency(property.price) }}
                   </span>
                 </TableCell>
                 <TableCell>
                   <div class="flex items-center gap-1">
-                    <User class="w-4 h-4 text-gray-400" />
-                    <span>{{ property.bedrooms }}</span>
+                    <User class="w-4 h-4 text-muted-foreground" />
+                    <span class="text-foreground">{{ property.bedrooms }}</span>
                   </div>
                 </TableCell>
                 <TableCell>
                   <div class="flex items-center gap-1">
-                    <Droplets class="w-4 h-4 text-gray-400" />
-                    <span>{{ property.bathrooms }}</span>
+                    <Droplets class="w-4 h-4 text-muted-foreground" />
+                    <span class="text-foreground">{{ property.bathrooms }}</span>
                   </div>
                 </TableCell>
                 <TableCell>
-                  <span class="text-sm">{{ property.area }} {{ $t('properties.units.sqm') }}</span>
+                  <span class="text-sm text-foreground">{{ property.area }} {{ $t('properties.units.sqm') }}</span>
                 </TableCell>
                 <TableCell>
                   <PropertyStatusBadge :status="property.status" />
@@ -141,7 +141,7 @@
                         {{ $t('properties.actions.edit') }}
                       </DropdownMenuItem>
                       <DropdownMenuSeparator />
-                      <DropdownMenuItem @click="deleteProperty(property)" class="text-red-600">
+                      <DropdownMenuItem @click="deleteProperty(property)" class="text-destructive">
                         <Trash2 class="w-4 h-4 mr-2" />
                         {{ $t('properties.actions.delete') }}
                       </DropdownMenuItem>
@@ -156,9 +156,9 @@
 
       <!-- Empty State -->
       <Card v-else class="p-12 text-center">
-        <Home class="w-16 h-16 text-gray-400 mx-auto mb-4" />
-        <h3 class="text-lg font-medium text-gray-900 mb-2">{{ $t('properties.states.noProperties') }}</h3>
-        <p class="text-gray-600 mb-4" v-if="agent">
+        <Home class="w-16 h-16 text-muted-foreground mx-auto mb-4" />
+        <h3 class="text-lg font-medium text-foreground mb-2">{{ $t('properties.states.noProperties') }}</h3>
+        <p class="text-muted-foreground mb-4" v-if="agent">
           {{ $t('properties.states.noPropertiesDescription', { agentName: agent.name }) }}
         </p>
         <Button @click="addProperty" variant="outline">
