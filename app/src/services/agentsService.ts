@@ -1,84 +1,31 @@
-import type { Agent, AgentFilters, SortState } from '@/types/agent';
-import agentsData from '@/assets/data/agents.json';
+import agentsData from '@/assets/data/agents.json'
+import type { Agent } from '@/types/agent'
 
-export class AgentsService {
-    private agents: Agent[] = agentsData as Agent[];
-
-    /**
-     * Get all agents with optional filtering and sorting
-     */
-    async getAgents(filters?: AgentFilters, sort?: SortState): Promise<Agent[]> {
-        let filteredAgents = [...this.agents];
-
-        // Apply filters
-        if (filters) {
-            if (filters.status && filters.status !== 'all') {
-                filteredAgents = filteredAgents.filter(agent => agent.status === filters.status);
-            }
-
-            if (filters.search) {
-                const searchLower = filters.search.toLowerCase();
-                filteredAgents = filteredAgents.filter(agent =>
-                    agent.name.toLowerCase().includes(searchLower) ||
-                    agent.phone.includes(filters.search!)
-                );
-            }
-
-            if (filters.dateFrom || filters.dateTo) {
-                filteredAgents = filteredAgents.filter(agent => {
-                    const agentDate = new Date(agent.joinDate);
-                    if (filters.dateFrom && agentDate < new Date(filters.dateFrom)) return false;
-                    if (filters.dateTo && agentDate > new Date(filters.dateTo)) return false;
-                    return true;
-                });
-            }
-        }
-
-        // Apply sorting
-        if (sort && sort.column) {
-            filteredAgents.sort((a, b) => {
-                const aValue = a[sort.column!];
-                const bValue = b[sort.column!];
-
-                let comparison = 0;
-                if (aValue < bValue) comparison = -1;
-                if (aValue > bValue) comparison = 1;
-
-                return sort.direction === 'desc' ? -comparison : comparison;
-            });
-        }
-
-        return filteredAgents;
+class AgentsService {
+    async getAgents(): Promise<Agent[]> {
+        // Simulate API delay
+        await new Promise(resolve => setTimeout(resolve, 100))
+        return agentsData as Agent[]
     }
 
-    /**
-     * Get agent by ID
-     */
     async getAgentById(id: string): Promise<Agent | null> {
-        return this.agents.find(agent => agent.id === id) || null;
+        await new Promise(resolve => setTimeout(resolve, 100))
+        const agents = agentsData as Agent[]
+        return agents.find(agent => agent.id === id) || null
     }
 
-    /**
-     * Delete agent by ID
-     */
     async deleteAgent(id: string): Promise<boolean> {
-        const index = this.agents.findIndex(agent => agent.id === id);
-        if (index > -1) {
-            this.agents.splice(index, 1);
-            return true;
-        }
-        return false;
+        // Simulate API call
+        await new Promise(resolve => setTimeout(resolve, 500))
+        // In real implementation, this would make an API call
+        console.log(`Deleting agent with id: ${id}`)
+        return true
     }
 
-    /**
-     * Get WhatsApp link for agent
-     */
-    getWhatsAppLink(phone: string, message: string = 'Hello! I would like to discuss real estate services.'): string {
-        const cleanPhone = phone.replace(/[^\d]/g, '');
-        const encodedMessage = encodeURIComponent(message);
-        return `https://wa.me/${cleanPhone}?text=${encodedMessage}`;
+    getWhatsAppLink(phone: string): string {
+        const cleanPhone = phone.replace(/\s+/g, '').replace(/^\+/, '')
+        return `https://wa.me/${cleanPhone}`
     }
 }
 
-// Export singleton instance
-export const agentsService = new AgentsService(); 
+export const agentsService = new AgentsService() 

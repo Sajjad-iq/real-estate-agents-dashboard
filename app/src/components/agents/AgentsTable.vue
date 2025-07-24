@@ -392,7 +392,8 @@ const table = useVueTable({
 
 // Action handlers
 function viewProfile(agent: Agent) {
-  alert(`Viewing profile for ${agent.name}`)
+  // Navigate to agent profile page
+  window.location.href = `/agent/${agent.id}`
 }
 
 function editProfile(agent: Agent) {
