@@ -1,11 +1,12 @@
 <template>
   <Badge :variant="badgeVariant" :class="badgeClass">
-    {{ capitalizedStatus }}
+    {{ translatedStatus }}
   </Badge>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { Badge } from '@/components/ui/badge';
 
 interface Props {
@@ -13,6 +14,8 @@ interface Props {
 }
 
 const props = defineProps<Props>();
+
+const { t } = useI18n();
 
 const badgeVariant = computed(() => {
   switch (props.status) {
@@ -40,7 +43,7 @@ const badgeClass = computed(() => {
   }
 });
 
-const capitalizedStatus = computed(() => {
-  return props.status.charAt(0).toUpperCase() + props.status.slice(1);
+const translatedStatus = computed(() => {
+  return t(`agencies.table.filters.${props.status}`);
 });
 </script> 

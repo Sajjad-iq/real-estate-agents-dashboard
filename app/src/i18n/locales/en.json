@@ -1,0 +1,187 @@
+{
+    "navigation": {
+        "subcategories": "Sub Categories",
+        "users": "Users",
+        "realtors": "Realtors",
+        "engineering": "Engineering Companies",
+        "buildings": "Building Complexes",
+        "agencies": "Realestate Agencies",
+        "customers": "Customers",
+        "realestates": "Realestates",
+        "projects": "Projects",
+        "news": "News",
+        "bundles": "Bundles",
+        "contact": "Contact",
+        "reports": "Reports",
+        "stats": "Stats",
+        "audit": "Action Audit",
+        "settings": "Settings"
+    },
+    "brand": {
+        "name": "Baity"
+    },
+    "agencies": {
+        "dashboard": {
+            "title": "Agencies Dashboard",
+            "subtitle": "Manage and monitor your Iraqi real estate agency network"
+        },
+        "stats": {
+            "totalAgencies": "Total Agencies",
+            "activeAgencies": "Active Agencies",
+            "pending": "Pending",
+            "totalRevenue": "Total Revenue"
+        },
+        "states": {
+            "loading": "Loading agents...",
+            "error": "Error",
+            "tryAgain": "Try Again",
+            "noAgenciesFound": "No agencies found",
+            "noAgenciesAdded": "No agencies have been added yet.",
+            "adjustFilters": "Try adjusting your filters.",
+            "clearFilters": "Clear Filters"
+        },
+        "table": {
+            "columns": {
+                "name": "Name",
+                "phone": "Phone",
+                "address": "Address",
+                "joinDate": "Join Date",
+                "properties": "Properties",
+                "branches": "Branches",
+                "employees": "Employees",
+                "subscription": "Subscription",
+                "status": "Status",
+                "actions": "Actions"
+            },
+            "controls": {
+                "columns": "Columns",
+                "selectAll": "Select all",
+                "selectRow": "Select row",
+                "openMenu": "Open menu",
+                "noAgenciesFound": "No agencies found.",
+                "selectedRows": "agency(ies) selected",
+                "rowsPerPage": "Rows per page",
+                "previous": "Previous",
+                "next": "Next"
+            },
+            "columnNames": {
+                "select": "Select",
+                "name": "Name",
+                "phone": "Phone",
+                "address": "Address",
+                "joinDate": "Join Date",
+                "propertiesCount": "Properties",
+                "branchesCount": "Branches",
+                "employeesCount": "Employees",
+                "subscriptionTotal": "Subscription",
+                "status": "Status",
+                "actions": "Actions"
+            },
+            "actions": {
+                "viewProfile": "View Profile",
+                "editProfile": "Edit Profile",
+                "viewProperties": "View Properties",
+                "sendWhatsApp": "Send WhatsApp",
+                "deleteAgent": "Delete Agent",
+                "confirmDelete": "Are you sure you want to delete"
+            },
+            "filters": {
+                "searchPlaceholder": "Search by agency name or phone...",
+                "statusPlaceholder": "Filter by status",
+                "allStatuses": "All Statuses",
+                "active": "Active",
+                "pending": "Pending",
+                "refused": "Refused",
+                "fromDatePlaceholder": "From date",
+                "toDatePlaceholder": "To date",
+                "clearFilters": "Clear Filters"
+            }
+        },
+        "editDialog": {
+            "title": "Edit Agency Profile",
+            "description": "Make changes to the agency profile here. Click save when you're done.",
+            "fields": {
+                "name": "Agency Name",
+                "phone": "Phone Number",
+                "address": "Address",
+                "properties": "Properties Count",
+                "branches": "Branches Count",
+                "employees": "Employees Count",
+                "subscription": "Subscription Total",
+                "status": "Status"
+            },
+            "placeholders": {
+                "name": "Enter agency name",
+                "phone": "Enter phone number",
+                "address": "Enter address",
+                "properties": "Enter properties count",
+                "branches": "Enter branches count",
+                "employees": "Enter employees count",
+                "subscription": "Enter subscription amount",
+                "status": "Select status"
+            },
+            "actions": {
+                "cancel": "Cancel",
+                "save": "Save Changes",
+                "saving": "Saving..."
+            }
+        }
+    },
+    "properties": {
+        "title": "Agent Properties",
+        "subtitle": "Properties managed by {agentName} ({count} total)",
+        "actions": {
+            "back": "Back",
+            "view": "View Details",
+            "edit": "Edit Property",
+            "delete": "Delete Property",
+            "addProperty": "Add Property",
+            "confirmDelete": "Are you sure you want to delete '{title}'?"
+        },
+        "stats": {
+            "totalProperties": "{count} Properties"
+        },
+        "states": {
+            "loading": "Loading properties...",
+            "error": "Error",
+            "tryAgain": "Try Again",
+            "agentNotFound": "Agent not found",
+            "errorLoadingAgent": "Error loading agent information",
+            "errorLoadingProperties": "Error loading properties",
+            "noProperties": "No Properties Found",
+            "noPropertiesDescription": "{agentName} has not added any properties yet."
+        },
+        "table": {
+            "id": "ID",
+            "columns": {
+                "image": "Image",
+                "title": "Title",
+                "type": "Type",
+                "location": "Location",
+                "price": "Price",
+                "bedrooms": "Bedrooms",
+                "bathrooms": "Bathrooms",
+                "area": "Area",
+                "status": "Status",
+                "actions": "Actions"
+            }
+        },
+        "types": {
+            "apartment": "Apartment",
+            "house": "House",
+            "villa": "Villa",
+            "office": "Office",
+            "shop": "Shop",
+            "land": "Land"
+        },
+        "statuses": {
+            "available": "Available",
+            "sold": "Sold",
+            "rented": "Rented",
+            "pending": "Pending"
+        },
+        "units": {
+            "sqm": "m²"
+        }
+    }
+}

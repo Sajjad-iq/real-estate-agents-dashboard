@@ -14,6 +14,27 @@ class AgentsService {
         return agents.find(agent => agent.id === id) || null
     }
 
+    async updateAgent(id: string, updates: Partial<Agent>): Promise<Agent | null> {
+        // Simulate API call
+        await new Promise(resolve => setTimeout(resolve, 500))
+
+        // In real implementation, this would make an API call
+        const agents = agentsData as Agent[]
+        const agentIndex = agents.findIndex(agent => agent.id === id)
+
+        if (agentIndex === -1) {
+            return null
+        }
+
+        // Update the agent with new data
+        const updatedAgent = { ...agents[agentIndex], ...updates, id }
+
+        // In a real app, you'd persist this to your backend
+        console.log(`Updating agent with id: ${id}`, updates)
+
+        return updatedAgent
+    }
+
     async deleteAgent(id: string): Promise<boolean> {
         // Simulate API call
         await new Promise(resolve => setTimeout(resolve, 500))

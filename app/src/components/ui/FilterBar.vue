@@ -5,7 +5,7 @@
       <div class="flex-1">
         <Input
           v-model="searchValue"
-          placeholder="Search by agency name or phone..."
+          :placeholder="$t('agencies.table.filters.searchPlaceholder')"
           class="w-full form-control"
           @input="emitFilters"
         />
@@ -15,13 +15,15 @@
       <div class="w-full md:w-48">
         <Select v-model="statusValue" @update:model-value="emitFilters">
           <SelectTrigger>
-            <SelectValue placeholder="Filter by status" />
+            <SelectValue :placeholder="$t('agencies.table.filters.statusPlaceholder')">
+              {{ getSelectedStatusText() }}
+            </SelectValue>
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All Statuses</SelectItem>
-            <SelectItem value="active">Active</SelectItem>
-            <SelectItem value="pending">Pending</SelectItem>
-            <SelectItem value="refused">Refused</SelectItem>
+            <SelectItem value="all">{{ $t('agencies.table.filters.allStatuses') }}</SelectItem>
+            <SelectItem value="active">{{ $t('agencies.table.filters.active') }}</SelectItem>
+            <SelectItem value="pending">{{ $t('agencies.table.filters.pending') }}</SelectItem>
+            <SelectItem value="refused">{{ $t('agencies.table.filters.refused') }}</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -32,21 +34,21 @@
           v-model="dateFromValue"
           type="date"
           class="w-40 form-control"
-          placeholder="From date"
+          :placeholder="$t('agencies.table.filters.fromDatePlaceholder')"
           @input="emitFilters"
         />
         <Input
           v-model="dateToValue"
           type="date"
           class="w-40 form-control"
-          placeholder="To date"
+          :placeholder="$t('agencies.table.filters.toDatePlaceholder')"
           @input="emitFilters"
         />
       </div>
 
       <!-- Clear Filters Button -->
       <Button variant="outline" @click="clearFilters" class="btn-secondary">
-        Clear Filters
+        {{ $t('agencies.table.filters.clearFilters') }}
       </Button>
     </div>
   </Card>
@@ -54,6 +56,7 @@
 
 <script setup lang="ts">
 import { ref, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -77,6 +80,8 @@ interface Emits {
 const props = defineProps<Props>();
 const emit = defineEmits<Emits>();
 
+const { t } = useI18n();
+
 const searchValue = ref(props.modelValue?.search || '');
 const statusValue = ref(props.modelValue?.status || 'all');
 const dateFromValue = ref(props.modelValue?.dateFrom || '');
@@ -99,6 +104,13 @@ function clearFilters() {
   dateFromValue.value = '';
   dateToValue.value = '';
   emitFilters();
+}
+
+function getSelectedStatusText() {
+  if (statusValue.value === 'all') {
+    return t('agencies.table.filters.allStatuses');
+  }
+  return t(`agencies.table.filters.${statusValue.value}`);
 }
 
 // Watch for external changes

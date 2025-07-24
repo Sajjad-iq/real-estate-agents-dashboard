@@ -40,7 +40,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { ArrowLeft, User } from 'lucide-vue-next'
 
 interface Props {
@@ -58,10 +59,11 @@ const emit = defineEmits<{
   languageChange: [language: string]
 }>()
 
-const currentLanguage = ref('en')
+const { locale } = useI18n()
+const currentLanguage = computed(() => locale.value)
 
 function setLanguage(language: string) {
-  currentLanguage.value = language
+  locale.value = language
   emit('languageChange', language)
 }
 

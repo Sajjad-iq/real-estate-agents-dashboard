@@ -2,8 +2,8 @@
   <div class="container mx-auto px-4 py-8">
     <!-- Page Header -->
     <div class="mb-8">
-      <h1 class="text-4xl font-bold text-foreground mb-2">Agencies Dashboard</h1>
-      <p class="text-muted-foreground text-lg">Manage and monitor your Iraqi real estate agency network</p>
+      <h1 class="text-4xl font-bold text-foreground mb-2">{{ $t('agencies.dashboard.title') }}</h1>
+      <p class="text-muted-foreground text-lg">{{ $t('agencies.dashboard.subtitle') }}</p>
     </div>
 
     <!-- Stats Cards -->
@@ -13,8 +13,8 @@
           <div class="p-3 bg-primary/10 rounded-xl">
             <User class="h-7 w-7 text-primary" />
           </div>
-          <div class="ml-4">
-            <p class="text-sm text-muted-foreground font-medium">Total Agencies</p>
+          <div class="ml-4 rtl:mr-4">
+            <p class="text-sm text-muted-foreground font-medium">{{ $t('agencies.stats.totalAgencies') }}</p>
             <p class="text-3xl font-bold text-foreground">{{ totalAgents }}</p>
           </div>
         </div>
@@ -25,8 +25,8 @@
           <div class="p-3 bg-teal-100 rounded-xl">
             <CheckCircle class="h-7 w-7 text-teal-600" />
           </div>
-          <div class="ml-4">
-            <p class="text-sm text-muted-foreground font-medium">Active Agencies</p>
+          <div class="ml-4 rtl:mr-4">
+            <p class="text-sm text-muted-foreground font-medium">{{ $t('agencies.stats.activeAgencies') }}</p>
             <p class="text-3xl font-bold text-teal-700">{{ activeAgents }}</p>
           </div>
         </div>
@@ -37,8 +37,8 @@
           <div class="p-3 bg-amber-100 rounded-xl">
             <Clock class="h-7 w-7 text-amber-600" />
           </div>
-          <div class="ml-4">
-            <p class="text-sm text-muted-foreground font-medium">Pending</p>
+          <div class="ml-4 rtl:mr-4">
+            <p class="text-sm text-muted-foreground font-medium">{{ $t('agencies.stats.pending') }}</p>
             <p class="text-3xl font-bold text-amber-700">{{ pendingAgents }}</p>
           </div>
         </div>
@@ -49,8 +49,8 @@
           <div class="p-3 bg-primary/10 rounded-xl">
             <DollarSign class="h-7 w-7 text-primary" />
           </div>
-          <div class="ml-4">
-            <p class="text-sm text-muted-foreground font-medium">Total Revenue</p>
+          <div class="ml-4 rtl:mr-4">
+            <p class="text-sm text-muted-foreground font-medium">{{ $t('agencies.stats.totalRevenue') }}</p>
             <p class="text-3xl font-bold text-primary">${{ totalRevenue.toLocaleString() }}</p>
           </div>
         </div>
@@ -61,7 +61,7 @@
     <div v-if="loading" class="flex items-center justify-center py-12">
       <div class="text-center">
         <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto mb-4"></div>
-        <p class="text-gray-600">Loading agents...</p>
+        <p class="text-gray-600">{{ $t('agencies.states.loading') }}</p>
       </div>
     </div>
 
@@ -70,12 +70,12 @@
       <div class="flex items-center">
         <AlertCircle class="h-6 w-6 text-red-600 mr-3" />
         <div>
-          <h3 class="text-lg font-medium text-red-800">Error</h3>
+          <h3 class="text-lg font-medium text-red-800">{{ $t('agencies.states.error') }}</h3>
           <p class="text-red-700">{{ error }}</p>
         </div>
       </div>
       <Button @click="loadAgents" class="mt-4" variant="outline">
-        Try Again
+        {{ $t('agencies.states.tryAgain') }}
       </Button>
     </div>
 
@@ -89,12 +89,12 @@
         <div class="mx-auto h-24 w-24 text-gray-400 mb-4">
           <User class="h-full w-full" />
         </div>
-        <h3 class="text-lg font-medium text-gray-900 mb-2">No agencies found</h3>
+        <h3 class="text-lg font-medium text-gray-900 mb-2">{{ $t('agencies.states.noAgenciesFound') }}</h3>
         <p class="text-gray-600 mb-4">
-          {{ agents.length === 0 ? 'No agencies have been added yet.' : 'Try adjusting your filters.' }}
+          {{ agents.length === 0 ? $t('agencies.states.noAgenciesAdded') : $t('agencies.states.adjustFilters') }}
         </p>
         <Button v-if="agents.length > 0" @click="clearFilters" variant="outline">
-          Clear Filters
+          {{ $t('agencies.states.clearFilters') }}
         </Button>
       </div>
 
@@ -103,6 +103,7 @@
         v-else
         :agents="filteredAgents"
         @agent-deleted="handleAgentDeleted"
+        @agent-updated="handleAgentUpdated"
       />
     </div>
   </div>
@@ -115,6 +116,7 @@ import { Button } from '@/components/ui/button';
 import FilterBar from '@/components/ui/FilterBar.vue';
 import AgentsTable from '@/components/agents/AgentsTable.vue';
 import { useAgents } from '@/composables/useAgents';
+import type { Agent } from '@/types/agent';
 import { 
   User, 
   CheckCircle, 
@@ -162,6 +164,13 @@ function clearFilters() {
 
 function handleAgentDeleted(agentId: string) {
   removeAgent(agentId);
+}
+
+function handleAgentUpdated(updatedAgent: Agent) {
+  const index = agents.value.findIndex(agent => agent.id === updatedAgent.id)
+  if (index !== -1) {
+    agents.value[index] = updatedAgent
+  }
 }
 
 // Load data on component mount

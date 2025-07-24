@@ -1,0 +1,187 @@
+{
+    "navigation": {
+        "subcategories": "الفئات الفرعية",
+        "users": "المستخدمين",
+        "realtors": "الوسطاء العقاريين",
+        "engineering": "شركات الهندسة",
+        "buildings": "المجمعات السكنية",
+        "agencies": "الوكالات العقارية",
+        "customers": "العملاء",
+        "realestates": "العقارات",
+        "projects": "المشاريع",
+        "news": "الأخبار",
+        "bundles": "الحزم",
+        "contact": "اتصل بنا",
+        "reports": "التقارير",
+        "stats": "الإحصائيات",
+        "audit": "مراجعة الإجراءات",
+        "settings": "الإعدادات"
+    },
+    "brand": {
+        "name": "بيتي"
+    },
+    "agencies": {
+        "dashboard": {
+            "title": "لوحة تحكم الوكالات",
+            "subtitle": "إدارة ومراقبة شبكة الوكالات العقارية العراقية"
+        },
+        "stats": {
+            "totalAgencies": "إجمالي الوكالات",
+            "activeAgencies": "الوكالات النشطة",
+            "pending": "قيد الانتظار",
+            "totalRevenue": "إجمالي الإيرادات"
+        },
+        "states": {
+            "loading": "جاري تحميل الوكلاء...",
+            "error": "خطأ",
+            "tryAgain": "حاول مرة أخرى",
+            "noAgenciesFound": "لم يتم العثور على وكالات",
+            "noAgenciesAdded": "لم يتم إضافة أي وكالات بعد.",
+            "adjustFilters": "حاول تعديل المرشحات.",
+            "clearFilters": "مسح المرشحات"
+        },
+        "table": {
+            "columns": {
+                "name": "الاسم",
+                "phone": "الهاتف",
+                "address": "العنوان",
+                "joinDate": "تاريخ الانضمام",
+                "properties": "العقارات",
+                "branches": "الفروع",
+                "employees": "الموظفين",
+                "subscription": "الاشتراك",
+                "status": "الحالة",
+                "actions": "الإجراءات"
+            },
+            "controls": {
+                "columns": "الأعمدة",
+                "selectAll": "تحديد الكل",
+                "selectRow": "تحديد الصف",
+                "openMenu": "فتح القائمة",
+                "noAgenciesFound": "لم يتم العثور على وكالات.",
+                "selectedRows": "وكالة محددة من أصل",
+                "rowsPerPage": "عدد الصفوف في الصفحة",
+                "previous": "السابق",
+                "next": "التالي"
+            },
+            "columnNames": {
+                "select": "تحديد",
+                "name": "الاسم",
+                "phone": "الهاتف",
+                "address": "العنوان",
+                "joinDate": "تاريخ الانضمام",
+                "propertiesCount": "العقارات",
+                "branchesCount": "الفروع",
+                "employeesCount": "الموظفين",
+                "subscriptionTotal": "الاشتراك",
+                "status": "الحالة",
+                "actions": "الإجراءات"
+            },
+            "actions": {
+                "viewProfile": "عرض الملف الشخصي",
+                "editProfile": "تعديل الملف الشخصي",
+                "viewProperties": "عرض العقارات",
+                "sendWhatsApp": "إرسال واتساب",
+                "deleteAgent": "حذف الوكيل",
+                "confirmDelete": "هل أنت متأكد من حذف"
+            },
+            "filters": {
+                "searchPlaceholder": "البحث باسم الوكالة أو الهاتف...",
+                "statusPlaceholder": "فلترة حسب الحالة",
+                "allStatuses": "جميع الحالات",
+                "active": "نشط",
+                "pending": "قيد الانتظار",
+                "refused": "مرفوض",
+                "fromDatePlaceholder": "من تاريخ",
+                "toDatePlaceholder": "إلى تاريخ",
+                "clearFilters": "مسح المرشحات"
+            }
+        },
+        "editDialog": {
+            "title": "تعديل ملف الوكالة",
+            "description": "قم بإجراء التغييرات على ملف الوكالة هنا. انقر على حفظ عند الانتهاء.",
+            "fields": {
+                "name": "اسم الوكالة",
+                "phone": "رقم الهاتف",
+                "address": "العنوان",
+                "properties": "عدد العقارات",
+                "branches": "عدد الفروع",
+                "employees": "عدد الموظفين",
+                "subscription": "إجمالي الاشتراك",
+                "status": "الحالة"
+            },
+            "placeholders": {
+                "name": "أدخل اسم الوكالة",
+                "phone": "أدخل رقم الهاتف",
+                "address": "أدخل العنوان",
+                "properties": "أدخل عدد العقارات",
+                "branches": "أدخل عدد الفروع",
+                "employees": "أدخل عدد الموظفين",
+                "subscription": "أدخل مبلغ الاشتراك",
+                "status": "اختر الحالة"
+            },
+            "actions": {
+                "cancel": "إلغاء",
+                "save": "حفظ التغييرات",
+                "saving": "جاري الحفظ..."
+            }
+        }
+    },
+    "properties": {
+        "title": "عقارات الوكيل",
+        "subtitle": "العقارات التي يديرها {agentName} ({count} إجمالي)",
+        "actions": {
+            "back": "رجوع",
+            "view": "عرض التفاصيل",
+            "edit": "تعديل العقار",
+            "delete": "حذف العقار",
+            "addProperty": "إضافة عقار",
+            "confirmDelete": "هل أنت متأكد من حذف '{title}'؟"
+        },
+        "stats": {
+            "totalProperties": "{count} عقار"
+        },
+        "states": {
+            "loading": "جاري تحميل العقارات...",
+            "error": "خطأ",
+            "tryAgain": "حاول مرة أخرى",
+            "agentNotFound": "لم يتم العثور على الوكيل",
+            "errorLoadingAgent": "خطأ في تحميل معلومات الوكيل",
+            "errorLoadingProperties": "خطأ في تحميل العقارات",
+            "noProperties": "لا توجد عقارات",
+            "noPropertiesDescription": "{agentName} لم يضف أي عقارات بعد."
+        },
+        "table": {
+            "id": "المعرف",
+            "columns": {
+                "image": "الصورة",
+                "title": "العنوان",
+                "type": "النوع",
+                "location": "الموقع",
+                "price": "السعر",
+                "bedrooms": "غرف النوم",
+                "bathrooms": "الحمامات",
+                "area": "المساحة",
+                "status": "الحالة",
+                "actions": "الإجراءات"
+            }
+        },
+        "types": {
+            "apartment": "شقة",
+            "house": "منزل",
+            "villa": "فيلا",
+            "office": "مكتب",
+            "shop": "محل تجاري",
+            "land": "أرض"
+        },
+        "statuses": {
+            "available": "متاح",
+            "sold": "مباع",
+            "rented": "مؤجر",
+            "pending": "قيد الانتظار"
+        },
+        "units": {
+            "sqm": "م²"
+        }
+    }
+}

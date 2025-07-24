@@ -1,6 +1,6 @@
 <template>
   <div class="sidebar-container">
-    <!-- Navigation Menu -->
+
     <nav class="sidebar-nav">
       <ul class="nav-list">
         <li>
@@ -9,7 +9,7 @@
             :class="['nav-item', { 'active': activeItem === 'subcategories' }]"
           >
             <Layers class="nav-icon" />
-            <span>Sub Categories</span>
+            <span>{{ $t('navigation.subcategories') }}</span>
           </button>
         </li>
 
@@ -19,7 +19,7 @@
             :class="['nav-item', { 'active': activeItem === 'users' }]"
           >
             <User class="nav-icon" />
-            <span>Users</span>
+            <span>{{ $t('navigation.users') }}</span>
           </button>
         </li>
 
@@ -29,7 +29,7 @@
             :class="['nav-item', { 'active': activeItem === 'realtors' }]"
           >
             <Building class="nav-icon" />
-            <span>Realtors</span>
+            <span>{{ $t('navigation.realtors') }}</span>
           </button>
         </li>
 
@@ -39,7 +39,7 @@
             :class="['nav-item', { 'active': activeItem === 'engineering' }]"
           >
             <Wrench class="nav-icon" />
-            <span>Engineering Companies</span>
+            <span>{{ $t('navigation.engineering') }}</span>
           </button>
         </li>
 
@@ -49,7 +49,7 @@
             :class="['nav-item', { 'active': activeItem === 'buildings' }]"
           >
             <Home class="nav-icon" />
-            <span>Building Complexes</span>
+            <span>{{ $t('navigation.buildings') }}</span>
           </button>
         </li>
 
@@ -59,7 +59,7 @@
             :class="['nav-item', { 'active': activeItem === 'agencies' }]"
           >
             <Briefcase class="nav-icon" />
-            <span>Realestate Agencies</span>
+            <span>{{ $t('navigation.agencies') }}</span>
           </button>
         </li>
 
@@ -69,7 +69,7 @@
             :class="['nav-item', { 'active': activeItem === 'customers' }]"
           >
             <Users class="nav-icon" />
-            <span>Customers</span>
+            <span>{{ $t('navigation.customers') }}</span>
           </button>
         </li>
 
@@ -79,7 +79,7 @@
             :class="['nav-item', { 'active': activeItem === 'realestates' }]"
           >
             <Home class="nav-icon" />
-            <span>Realestates</span>
+            <span>{{ $t('navigation.realestates') }}</span>
           </button>
         </li>
 
@@ -89,7 +89,7 @@
             :class="['nav-item', { 'active': activeItem === 'projects' }]"
           >
             <FileText class="nav-icon" />
-            <span>Projects</span>
+            <span>{{ $t('navigation.projects') }}</span>
           </button>
         </li>
 
@@ -99,7 +99,7 @@
             :class="['nav-item', { 'active': activeItem === 'news' }]"
           >
             <Newspaper class="nav-icon" />
-            <span>News</span>
+            <span>{{ $t('navigation.news') }}</span>
           </button>
         </li>
 
@@ -109,7 +109,7 @@
             :class="['nav-item', { 'active': activeItem === 'bundles' }]"
           >
             <Package class="nav-icon" />
-            <span>Bundles</span>
+            <span>{{ $t('navigation.bundles') }}</span>
           </button>
         </li>
 
@@ -119,7 +119,7 @@
             :class="['nav-item', { 'active': activeItem === 'contact' }]"
           >
             <Mail class="nav-icon" />
-            <span>Contact</span>
+            <span>{{ $t('navigation.contact') }}</span>
           </button>
         </li>
 
@@ -129,7 +129,7 @@
             :class="['nav-item', { 'active': activeItem === 'reports' }]"
           >
             <BarChart3 class="nav-icon" />
-            <span>Reports</span>
+            <span>{{ $t('navigation.reports') }}</span>
           </button>
         </li>
 
@@ -139,7 +139,7 @@
             :class="['nav-item', { 'active': activeItem === 'stats' }]"
           >
             <TrendingUp class="nav-icon" />
-            <span>Stats</span>
+            <span>{{ $t('navigation.stats') }}</span>
           </button>
         </li>
 
@@ -149,7 +149,7 @@
             :class="['nav-item', { 'active': activeItem === 'audit' }]"
           >
             <FileCheck class="nav-icon" />
-            <span>Action Audit</span>
+            <span>{{ $t('navigation.audit') }}</span>
           </button>
         </li>
 
@@ -159,7 +159,7 @@
             :class="['nav-item', { 'active': activeItem === 'settings' }]"
           >
             <Settings class="nav-icon" />
-            <span>Settings</span>
+            <span>{{ $t('navigation.settings') }}</span>
           </button>
         </li>
       </ul>
@@ -168,7 +168,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
 import {
   Layers,
   User,
@@ -191,16 +192,25 @@ const emit = defineEmits<{
   navigate: [section: string]
 }>()
 
+const route = useRoute()
 const activeItem = ref('agencies') // Default to agencies since that's our main section
+
+// Update active item based on current route
+const currentSection = computed(() => {
+  if (route.path.includes('/agents')) {
+    return 'agencies'
+  }
+  // Add more route mappings as needed
+  return 'agencies' // Default fallback
+})
+
+onMounted(() => {
+  activeItem.value = currentSection.value
+})
 
 function navigateTo(section: string) {
   activeItem.value = section
   emit('navigate', section)
-}
-
-// Set agencies as active by default for our real estate dashboard
-if (window.location.pathname === '/' || window.location.pathname.includes('agent')) {
-  activeItem.value = 'agencies'
 }
 </script>
 
@@ -213,6 +223,39 @@ if (window.location.pathname === '/' || window.location.pathname.includes('agent
   color: white;
   display: flex;
   flex-direction: column;
+}
+
+/* RTL support is now handled globally via HTML dir attribute */
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border-bottom: 1px solid #334155;
+}
+
+[dir="rtl"] .sidebar-header {
+  /* Keep flex-direction: row to maintain logo-first order */
+  text-align: right;
+}
+
+.logo {
+  width: 32px;
+  height: 32px;
+  background-color: #3b82f6;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.sidebar-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
 }
 
 
@@ -268,6 +311,23 @@ if (window.location.pathname === '/' || window.location.pathname.includes('agent
   bottom: 0;
   width: 4px;
   background-color: #f97316;
+}
+
+/* RTL Support */
+[dir="rtl"] .nav-item {
+  text-align: right;
+  /* Keep flex-direction: row to maintain icon-first order */
+}
+
+[dir="rtl"] .nav-item.active {
+  border-radius: 25px 0 0 25px;
+  margin-right: 0;
+  margin-left: 12px;
+}
+
+[dir="rtl"] .nav-item.active::before {
+  left: auto;
+  right: 0;
 }
 
 .nav-icon {

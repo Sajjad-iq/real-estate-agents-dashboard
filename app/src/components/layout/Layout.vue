@@ -2,7 +2,6 @@
   <div id="layout" class="layout-container">
     <!-- Top Navigation -->
     <TopNavbar 
-      :showBackButton="showBackButton" 
       :pageTitle="pageTitle"
       @goBack="handleGoBack"
       @languageChange="handleLanguageChange"
@@ -30,7 +29,7 @@ import Sidebar from './Sidebar.vue'
 import TopNavbar from './TopNavbar.vue'
 
 interface Props {
-  currentView?: 'dashboard' | 'profile'
+  currentView?: 'dashboard' | 'profile' | 'properties'
   pageTitle?: string
   showBackButton?: boolean
 }
