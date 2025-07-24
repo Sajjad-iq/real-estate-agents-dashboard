@@ -1,12 +1,12 @@
 <template>
-  <Card class="p-6 mb-6">
+  <Card class="p-6 mb-6 card-enhanced">
     <div class="flex flex-col md:flex-row gap-4">
       <!-- Search Input -->
       <div class="flex-1">
         <Input
           v-model="searchValue"
           placeholder="Search by name or phone..."
-          class="w-full"
+          class="w-full form-control"
           @input="emitFilters"
         />
       </div>
@@ -31,21 +31,21 @@
         <Input
           v-model="dateFromValue"
           type="date"
-          class="w-40"
+          class="w-40 form-control"
           placeholder="From date"
           @input="emitFilters"
         />
         <Input
           v-model="dateToValue"
           type="date"
-          class="w-40"
+          class="w-40 form-control"
           placeholder="To date"
           @input="emitFilters"
         />
       </div>
 
       <!-- Clear Filters Button -->
-      <Button variant="outline" @click="clearFilters">
+      <Button variant="outline" @click="clearFilters" class="btn-secondary">
         Clear Filters
       </Button>
     </div>

@@ -2,56 +2,56 @@
   <div class="container mx-auto px-4 py-8">
     <!-- Page Header -->
     <div class="mb-8">
-      <h1 class="text-4xl font-bold text-gray-900 mb-2">Real Estate Agents</h1>
-      <p class="text-gray-600">Manage and monitor your real estate agent network</p>
+      <h1 class="text-4xl font-bold text-foreground mb-2">Real Estate Agents Dashboard</h1>
+      <p class="text-muted-foreground text-lg">Manage and monitor your Iraqi real estate agent network</p>
     </div>
 
     <!-- Stats Cards -->
     <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-      <Card class="p-6">
+      <Card class="p-6 stats-card card-enhanced">
         <div class="flex items-center">
-          <div class="p-2 bg-green-100 rounded-lg">
-            <User class="h-6 w-6 text-green-600" />
+          <div class="p-3 bg-primary/10 rounded-xl">
+            <User class="h-7 w-7 text-primary" />
           </div>
           <div class="ml-4">
-            <p class="text-sm text-gray-600">Total Agents</p>
-            <p class="text-2xl font-bold">{{ totalAgents }}</p>
+            <p class="text-sm text-muted-foreground font-medium">Total Agents</p>
+            <p class="text-3xl font-bold text-foreground">{{ totalAgents }}</p>
           </div>
         </div>
       </Card>
       
-      <Card class="p-6">
+      <Card class="p-6 stats-card card-enhanced">
         <div class="flex items-center">
-          <div class="p-2 bg-blue-100 rounded-lg">
-            <CheckCircle class="h-6 w-6 text-blue-600" />
+          <div class="p-3 bg-teal-100 rounded-xl">
+            <CheckCircle class="h-7 w-7 text-teal-600" />
           </div>
           <div class="ml-4">
-            <p class="text-sm text-gray-600">Active Agents</p>
-            <p class="text-2xl font-bold">{{ activeAgents }}</p>
+            <p class="text-sm text-muted-foreground font-medium">Active Agents</p>
+            <p class="text-3xl font-bold text-teal-700">{{ activeAgents }}</p>
           </div>
         </div>
       </Card>
       
-      <Card class="p-6">
+      <Card class="p-6 stats-card card-enhanced">
         <div class="flex items-center">
-          <div class="p-2 bg-yellow-100 rounded-lg">
-            <Clock class="h-6 w-6 text-yellow-600" />
+          <div class="p-3 bg-amber-100 rounded-xl">
+            <Clock class="h-7 w-7 text-amber-600" />
           </div>
           <div class="ml-4">
-            <p class="text-sm text-gray-600">Pending</p>
-            <p class="text-2xl font-bold">{{ pendingAgents }}</p>
+            <p class="text-sm text-muted-foreground font-medium">Pending</p>
+            <p class="text-3xl font-bold text-amber-700">{{ pendingAgents }}</p>
           </div>
         </div>
       </Card>
       
-      <Card class="p-6">
+      <Card class="p-6 stats-card card-enhanced">
         <div class="flex items-center">
-          <div class="p-2 bg-green-100 rounded-lg">
-            <DollarSign class="h-6 w-6 text-green-600" />
+          <div class="p-3 bg-primary/10 rounded-xl">
+            <DollarSign class="h-7 w-7 text-primary" />
           </div>
           <div class="ml-4">
-            <p class="text-sm text-gray-600">Total Revenue</p>
-            <p class="text-2xl font-bold">${{ totalRevenue.toLocaleString() }}</p>
+            <p class="text-sm text-muted-foreground font-medium">Total Revenue</p>
+            <p class="text-3xl font-bold text-primary">${{ totalRevenue.toLocaleString() }}</p>
           </div>
         </div>
       </Card>

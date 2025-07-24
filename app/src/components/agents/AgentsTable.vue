@@ -1,8 +1,8 @@
 <template>
   <div class="space-y-4">
     <!-- Table -->
-    <Card>
-      <Table>
+    <Card class="card-enhanced">
+      <Table class="table-modern">
         <TableHeader>
           <TableRow>
             <TableHead 
@@ -22,7 +22,7 @@
           </TableRow>
         </TableHeader>
         <TableBody>
-          <TableRow v-for="agent in paginatedAgents" :key="agent.id">
+          <TableRow v-for="agent in paginatedAgents" :key="agent.id" class="hover:bg-primary/2 transition-colors">
             <TableCell class="font-medium">{{ agent.name }}</TableCell>
             <TableCell>{{ agent.phone }}</TableCell>
             <TableCell>{{ agent.address }}</TableCell>
@@ -30,7 +30,7 @@
             <TableCell class="text-right">{{ agent.propertiesCount }}</TableCell>
             <TableCell class="text-right">{{ agent.branchesCount }}</TableCell>
             <TableCell class="text-right">{{ agent.employeesCount }}</TableCell>
-            <TableCell class="text-right">${{ agent.subscriptionTotal.toLocaleString() }}</TableCell>
+            <TableCell class="text-right font-semibold text-primary">${{ agent.subscriptionTotal.toLocaleString() }}</TableCell>
             <TableCell>
               <StatusBadge :status="agent.status" />
             </TableCell>

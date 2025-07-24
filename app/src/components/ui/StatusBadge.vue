@@ -30,11 +30,11 @@ const badgeVariant = computed(() => {
 const badgeClass = computed(() => {
   switch (props.status) {
     case 'active':
-      return 'bg-green-100 text-green-800 hover:bg-green-100';
+      return 'bg-teal-100 text-teal-800 hover:bg-teal-100 border-teal-200';
     case 'pending':
-      return 'bg-yellow-100 text-yellow-800 hover:bg-yellow-100';
+      return 'bg-amber-100 text-amber-800 hover:bg-amber-100 border-amber-200';
     case 'refused':
-      return 'bg-red-100 text-red-800 hover:bg-red-100';
+      return 'bg-rose-100 text-rose-800 hover:bg-rose-100 border-rose-200';
     default:
       return '';
   }
