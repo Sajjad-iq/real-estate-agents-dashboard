@@ -1,10 +1,31 @@
 <template>
   <div class="w-full space-y-4">
     <!-- Table Controls -->
-    <div class="flex items-center justify-between">
-      
-      
+    <div class="flex items-center justify-between flex-1">
+
       <div class="flex items-center space-x-2">
+      <div class="flex items-center gap-4">
+        <span class="text-sm text-muted-foreground">{{ $t('agencies.cards.itemsPerPage') }}</span>
+
+        <Select 
+          :model-value="table.getState().pagination.pageSize.toString()"
+          @update:model-value="(value) => table.setPageSize(Number(value))"
+        >
+          <SelectTrigger class="h-8 w-[70px]">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="10">10</SelectItem>
+            <SelectItem value="20">20</SelectItem>
+            <SelectItem value="30">30</SelectItem>
+            <SelectItem value="50">50</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+      </div>
+     
+      
+      <div class="flex items-center space-x-2 flex-0 self-end">
         <DropdownMenu>
           <DropdownMenuTrigger as-child>
             <Button variant="outline" class="btn-secondary">
@@ -104,24 +125,11 @@
     </div>
 
     <!-- Pagination -->
-    <div class="flex items-center justify-between space-x-2 py-4" v-if="table.getPageCount() > 1">
+    <div class="flex items-center justify-between space-x-2 py-4 rtl:flex-row-reverse" v-if="table.getPageCount() > 1">
       <div class="text-sm text-muted-foreground">
         {{ $t('agencies.pagination.showing') }} {{ startItem }} - {{ endItem }} {{ $t('agencies.pagination.of') }} {{ table.getFilteredRowModel().rows.length }}
       </div>
-      <div class="flex items-center space-x-2">
-        <p class="text-sm font-medium">{{ $t('agencies.table.controls.rowsPerPage') }}</p>
-        <select
-          :value="table.getState().pagination.pageSize"
-          @change="table.setPageSize(Number(($event.target as HTMLSelectElement).value))"
-          class="h-8 w-[70px] rounded border border-input bg-background text-sm"
-        >
-          <option value="10">10</option>
-          <option value="20">20</option>
-          <option value="30">30</option>
-          <option value="50">50</option>
-        </select>
-      </div>
-      <div class="flex items-center space-x-2">
+      <div class="flex items-center gap-2">
         <Button
           variant="outline"
           size="sm"
@@ -131,7 +139,7 @@
           {{ $t('agencies.table.controls.previous') }}
         </Button>
         
-        <div class="flex items-center space-x-1">
+        <div class="flex items-center gap-1">
           <Button
             v-for="page in visibleTablePages"
             :key="page"
@@ -197,6 +205,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import {
   Table,
   TableBody,
@@ -483,24 +498,7 @@ function handleCellClick(columnId: string, event: Event) {
   left: auto;
 }
 
-/* RTL Button and control adjustments */
-[dir="rtl"] .flex.items-center.space-x-2 {
-  flex-direction: row-reverse;
-}
 
-[dir="rtl"] .flex.items-center.space-x-2 > * {
-  margin-left: 0;
-  margin-right: 0.5rem;
-}
-
-[dir="rtl"] .flex.items-center.space-x-2 > *:first-child {
-  margin-right: 0;
-}
-
-/* RTL Pagination controls */
-[dir="rtl"] .flex.items-center.justify-between.space-x-2 {
-  flex-direction: row-reverse;
-}
 
 
 

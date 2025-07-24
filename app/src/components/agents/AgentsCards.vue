@@ -1,24 +1,24 @@
 <template>
   <div class="w-full space-y-4">
     <!-- View Controls -->
-    <div class="flex items-center justify-between">
-      <div class="flex items-center space-x-2">
-        <span class="text-sm text-muted-foreground">
-          {{ filteredAgents.length }} {{ $t('agencies.cards.totalItems') }}
-        </span>
-      </div>
+    <div class="flex items-center justify-end">
+   
       
       <div class="flex items-center space-x-2">
-        <select
-          v-model="itemsPerPage"
-          @change="updateItemsPerPage"
-          class="h-8 w-[70px] rounded border border-input bg-background text-sm"
+        <Select 
+          :model-value="itemsPerPage.toString()"
+          @update:model-value="(value) => { itemsPerPage = Number(value); updateItemsPerPage(); }"
         >
-          <option value="12">12</option>
-          <option value="24">24</option>
-          <option value="36">36</option>
-          <option value="48">48</option>
-        </select>
+          <SelectTrigger class="h-8 w-[70px]">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="12">12</SelectItem>
+            <SelectItem value="24">24</SelectItem>
+            <SelectItem value="36">36</SelectItem>
+            <SelectItem value="48">48</SelectItem>
+          </SelectContent>
+        </Select>
         <span class="text-sm text-muted-foreground">{{ $t('agencies.cards.itemsPerPage') }}</span>
       </div>
     </div>
@@ -120,7 +120,7 @@
       <div class="text-sm text-muted-foreground">
         {{ $t('agencies.pagination.showing') }} {{ startItem }} - {{ endItem }} {{ $t('agencies.pagination.of') }} {{ filteredAgents.length }}
       </div>
-      <div class="flex items-center space-x-2">
+      <div class="flex items-center space-x-2 rtl:flex-row-reverse">
         <Button
           variant="outline"
           size="sm"
@@ -130,7 +130,7 @@
           {{ $t('agencies.table.controls.previous') }}
         </Button>
         
-        <div class="flex items-center space-x-1">
+        <div class="flex items-center space-x-1 rtl:flex-row-reverse">
           <Button
             v-for="page in visiblePages"
             :key="page"
@@ -188,6 +188,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import StatusBadge from '@/components/ui/StatusBadge.vue'
 import EditAgentDialog from '@/components/agents/EditAgentDialog.vue'
 import type { Agent } from '@/types/agent'
