@@ -1,20 +1,24 @@
 <template>
-  <div id="layout" class="h-screen overflow-hidden grid  grid-rows-[auto_1fr]">
-    <!-- Sidebar Navigation -->
+  <div id="layout" class="layout-container">
+    <!-- Top Navigation -->
     <TopNavbar 
-        :showBackButton="showBackButton" 
-        :pageTitle="pageTitle"
-        @goBack="handleGoBack"
-        @languageChange="handleLanguageChange"
-      />
+      :showBackButton="showBackButton" 
+      :pageTitle="pageTitle"
+      @goBack="handleGoBack"
+      @languageChange="handleLanguageChange"
+      class="layout-navbar"
+    />
+    
     <!-- Main Content Area -->
-    <div :class="['grid grid-cols-[240px_1fr]']">
-      <!-- Top Navigation -->
+    <div class="layout-main">
+      <!-- Sidebar Navigation -->
       <Sidebar 
         @navigate="handleNavigation" 
+        class="layout-sidebar"
       />  
+      
       <!-- Page Content Slot -->
-      <main class="flex-1 h-full overflow-scroll">
+      <main class="layout-content">
         <slot />
       </main>
     </div>
@@ -58,3 +62,32 @@ function handleLanguageChange(language: string) {
 }
 </script>
 
+<style scoped>
+.layout-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.layout-navbar {
+  flex-shrink: 0;
+}
+
+.layout-main {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
+.layout-sidebar {
+  flex-shrink: 0;
+  width: 240px;
+}
+
+.layout-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+</style>
