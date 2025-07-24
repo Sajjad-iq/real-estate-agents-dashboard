@@ -44,15 +44,6 @@ import { ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { ArrowLeft, User } from 'lucide-vue-next'
 
-interface Props {
-  showBackButton?: boolean
-  pageTitle?: string
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  showBackButton: false,
-  pageTitle: ''
-})
 
 const emit = defineEmits<{
   goBack: []

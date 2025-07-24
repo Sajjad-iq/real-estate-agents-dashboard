@@ -1,11 +1,5 @@
 <template>
   <Layout 
-    :currentView="currentView"
-    :pageTitle="pageTitle"
-    :showBackButton="showBackButton"
-    @navigate="handleNavigation"
-    @goBack="handleGoBack"
-    @languageChange="handleLanguageChange"
   >
     <router-view />
   </Layout>
@@ -24,7 +18,6 @@ const router = useRouter()
 useRTL()
 
 // Get values from route meta - this is the proper Vue Router way
-const currentView = computed(() => (route.meta.currentView as string) || 'dashboard')
 const pageTitle = computed(() => (route.meta.title as string) || '')
 const showBackButton = computed(() => (route.meta.showBackButton as boolean) || false)
 
@@ -92,10 +85,7 @@ function handleGoBack() {
   router.go(-1)
 }
 
-function handleLanguageChange(language: string) {
-  console.log('Language changed to:', language)
-  // Language switching is handled by the i18n composable
-}
+
 </script>
 
 <style scoped>

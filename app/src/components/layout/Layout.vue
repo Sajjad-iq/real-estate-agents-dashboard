@@ -2,9 +2,7 @@
   <div id="layout" class="layout-container">
     <!-- Top Navigation -->
     <TopNavbar 
-      :pageTitle="pageTitle"
       @goBack="handleGoBack"
-      @languageChange="handleLanguageChange"
       class="layout-navbar"
     />
     
@@ -27,18 +25,6 @@
 <script setup lang="ts">
 import Sidebar from './Sidebar.vue'
 import TopNavbar from './TopNavbar.vue'
-
-interface Props {
-  currentView?: 'dashboard' | 'profile' | 'properties' | 'subcategories' | 'users' | 'realtors' | 'engineering' | 'buildings' | 'customers' | 'realestates' | 'projects' | 'news' | 'bundles' | 'contact' | 'reports' | 'stats' | 'audit' | 'settings'
-  pageTitle?: string
-  showBackButton?: boolean
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  currentView: 'dashboard',
-  pageTitle: '',
-  showBackButton: false
-})
 
 const emit = defineEmits<{
   navigate: [section: string]
