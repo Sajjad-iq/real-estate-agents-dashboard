@@ -1,6 +1,6 @@
 <template>
   <Card class="p-6 mb-6 card-enhanced">
-    <div class="flex flex-col md:flex-row gap-4">
+    <div class="flex flex-col lg:flex-row gap-4">
       <!-- Search Input -->
       <div class="flex-1">
         <Input

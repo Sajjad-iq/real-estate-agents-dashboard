@@ -13,11 +13,11 @@
       <!-- Sidebar Navigation -->
       <Sidebar 
         @navigate="handleNavigation" 
-        class="layout-sidebar"
+        class="layout-sidebar !hidden sm:!flex"
       />  
       
       <!-- Page Content Slot -->
-      <main class="layout-content">
+      <main class="layout-content ">
         <slot />
       </main>
     </div>
